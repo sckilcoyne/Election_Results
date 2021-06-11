@@ -1,0 +1,34 @@
+CANDIDATE 	THIS ROUND 	TOTAL 	STATUS
+Mazen, Nadeem A. 	0  	1786  	 ELECTED -- 1st count
+Simmons, E. Denise 	0  	1786  	 ELECTED -- 11th count
+Maher, David P. 	0  	1786  	 ELECTED -- 13th count
+Devereux, Jan 	0  	1786  	 ELECTED -- 14th count
+Toomey, Jr., Timothy J. 	0  	1786  	 ELECTED -- 14th count
+Cheung, Leland 	+80  	1786  	 ELECTED -- 15th count
+Kelley, Craig A. 	+50  	1786  	 ELECTED -- 15th count
+Carlone, Dennis J. 	+180  	1786  	 ELECTED -- 15th count
+McGovern, Marc C. 	+115  	1786  	 ELECTED -- 15th count
+vanBeuzekom, Minka Y. 	-1461  	0  	 DEFEATED -- 14th count
+Benzan, Dennis A. 	0  	0  	 DEFEATED -- 13th count
+Davidson, Mariko 	0  	0  	 DEFEATED -- 12th count
+Connolly, Mike 	0  	0  	 DEFEATED -- 11th count
+Waite, Romaine 	0  	0  	 DEFEATED -- 10th count
+Mahoney, Jr., Paul F. 	0  	0  	 DEFEATED -- 9th count
+Levy, Ilan S. 	0  	0  	 DEFEATED -- 8th count
+Mello, Gary W. 	0  	0  	 DEFEATED -- 7th count
+Courtney, Kim 	0  	0  	 DEFEATED -- 6th count
+Moree, Gregg J. 	0  	0  	 DEFEATED -- 5th count
+Williamson, James M. 	0  	0  	 DEFEATED -- 4th count
+Degoes, Jr., Plinio T. 	0  	0  	 DEFEATED -- 3rd count
+Sanzone, John 	0  	0  	 DEFEATED -- 2nd count
+Dietrich, Xavier 	0  	0  	 DEFEATED -- 2nd count
+Write-In 1 	0  	0  	 DEFEATED -- 2nd count
+Write-In 2 	0  	0  	 DEFEATED -- 2nd count
+Write-In 4 	0  	0  	 DEFEATED -- 2nd count
+Write-In 3 	0  	0  	 DEFEATED -- 2nd count
+Write-In 5 	0  	0  	 DEFEATED -- 2nd count
+Write-In 6 	0  	0  	 DEFEATED -- 2nd count
+Write-In 7 	0  	0  	 DEFEATED -- 2nd count
+Write-In 8 	0  	0  	 DEFEATED -- 2nd count
+Write-In 9 	0  	0  	 DEFEATED -- 2nd count
+EXHAUSTED PILE: 	+1036  	1780  	 

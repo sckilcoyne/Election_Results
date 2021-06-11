@@ -1,0 +1,34 @@
+CANDIDATE 	THIS ROUND 	TOTAL 	STATUS
+Mazen, Nadeem A. 	0  	1786  	 ELECTED -- 1st count
+Simmons, E. Denise 	+3  	1730  	 CONTINUING
+Maher, David P. 	+2  	1654  	 CONTINUING
+Kelley, Craig A. 	+1  	1450  	 CONTINUING
+Toomey, Jr., Timothy J. 	0  	1423  	 CONTINUING
+Devereux, Jan 	+7  	1326  	 CONTINUING
+McGovern, Marc C. 	0  	1214  	 CONTINUING
+Cheung, Leland 	+2  	1203  	 CONTINUING
+Benzan, Dennis A. 	+2  	1167  	 CONTINUING
+vanBeuzekom, Minka Y. 	+3  	1028  	 CONTINUING
+Carlone, Dennis J. 	+2  	1020  	 CONTINUING
+Davidson, Mariko 	+6  	901  	 CONTINUING
+Connolly, Mike 	+5  	860  	 CONTINUING
+Waite, Romaine 	+2  	289  	 CONTINUING
+Mahoney, Jr., Paul F. 	+1  	255  	 CONTINUING
+Levy, Ilan S. 	+3  	158  	 CONTINUING
+Mello, Gary W. 	+1  	120  	 CONTINUING
+Courtney, Kim 	0  	84  	 CONTINUING
+Moree, Gregg J. 	+1  	82  	 CONTINUING
+Williamson, James M. 	+2  	75  	 DEFEATED -- 4th count
+Degoes, Jr., Plinio T. 	-52  	0  	 DEFEATED -- 3rd count
+Sanzone, John 	0  	0  	 DEFEATED -- 2nd count
+Dietrich, Xavier 	0  	0  	 DEFEATED -- 2nd count
+Write-In 1 	0  	0  	 DEFEATED -- 2nd count
+Write-In 2 	0  	0  	 DEFEATED -- 2nd count
+Write-In 4 	0  	0  	 DEFEATED -- 2nd count
+Write-In 3 	0  	0  	 DEFEATED -- 2nd count
+Write-In 5 	0  	0  	 DEFEATED -- 2nd count
+Write-In 6 	0  	0  	 DEFEATED -- 2nd count
+Write-In 7 	0  	0  	 DEFEATED -- 2nd count
+Write-In 8 	0  	0  	 DEFEATED -- 2nd count
+Write-In 9 	0  	0  	 DEFEATED -- 2nd count
+EXHAUSTED PILE: 	+9  	29  	 

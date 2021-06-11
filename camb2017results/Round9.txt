@@ -1,0 +1,29 @@
+CANDIDATE 	THIS ROUND 	TOTAL 	STATUS
+Simmons, E. Denise 	0  	2253  	 ELECTED -- 1st count
+Siddiqui, Sumbul 	0  	2253  	 ELECTED -- 1st count
+McGovern, Marc C. 	+15  	2016  	 CONTINUING
+Devereux, Jan 	+14  	1836  	 CONTINUING
+Toomey, Jr., Timothy J. 	+11  	1722  	 CONTINUING
+Zondervan, Quinton Y. 	+3  	1675  	 CONTINUING
+Mallon, Alanna M. 	+10  	1426  	 CONTINUING
+Carlone, Dennis J. 	+11  	1259  	 CONTINUING
+Kelley, Craig A. 	+7  	1146  	 CONTINUING
+Toner, Paul F. 	+8  	1032  	 CONTINUING
+Harding, Jr., Richard 	+30  	954  	 CONTINUING
+Gebru, Samuel 	+24  	867  	 CONTINUING
+Sivongxay, Vatsady 	+4  	862  	 CONTINUING
+Tierney, Sean 	+5  	824  	 CONTINUING
+Okamoto, Nadya T. 	+13  	638  	 CONTINUING
+Musgrave, Adriane B. 	+6  	609  	 CONTINUING
+Burgin, Josh M. 	+16  	430  	 CONTINUING
+Volmar, Gwen Thomas 	+7  	289  	 CONTINUING
+Levy, Ilan 	+2  	276  	 DEFEATED -- 9th count
+Benjamin, Ronald 	-269  	0  	 DEFEATED -- 8th count
+D'Ambrosio, Olivia 	0  	0  	 DEFEATED -- 7th count
+Santos, Jeff 	0  	0  	 DEFEATED -- 6th count
+Pillai, Hari I. 	0  	0  	 DEFEATED -- 5th count
+Lenke, Dan 	0  	0  	 DEFEATED -- 4th count
+Moree, Gregg J. 	0  	0  	 DEFEATED -- 3rd count
+Sutton, Bryan 	0  	0  	 DEFEATED -- 3rd count
+Write-In 1 	0  	0  	 DEFEATED -- 3rd count
+EXHAUSTED PILE: 	+83  	157  	 
