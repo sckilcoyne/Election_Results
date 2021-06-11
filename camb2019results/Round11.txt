@@ -1,0 +1,33 @@
+CANDIDATE 	THIS ROUND 	TOTAL 	STATUS
+Siddiqui, Sumbul 	0  	2124  	 ELECTED -- 1st count
+Simmons, E. Denise 	0  	2124  	 ELECTED -- 7th count
+Nolan, Patricia M. 	+124  	2066  	 CONTINUING
+Toomey, Jr., Timothy J. 	+33  	1856  	 CONTINUING
+McGovern, Marc C. 	+32  	1785  	 CONTINUING
+Carlone, Dennis J. 	+78  	1727  	 CONTINUING
+Zondervan, Quinton Y. 	+111  	1721  	 CONTINUING
+Kelley, Craig A. 	+110  	1675  	 CONTINUING
+Sobrinho-Wheeler, Jivan 	+24  	1561  	 CONTINUING
+Mallon, Alanna M. 	+25  	1500  	 CONTINUING
+Azeem, Burhan 	+17  	1163  	 CONTINUING
+Musgrave, Adriane 	+12  	876  	 CONTINUING
+Williams, Nicola A. 	+81  	875  	 DEFEATED -- 11th count
+Pitkin, John 	-694  	0  	 DEFEATED -- 10th count
+Kopon, Derek Andrew 	0  	0  	 DEFEATED -- 9th count
+Akiba, Sukia 	0  	0  	 DEFEATED -- 8th count
+Franklin, Charles J. 	0  	0  	 DEFEATED -- 7th count
+Simon, Ben 	0  	0  	 DEFEATED -- 6th count
+Mednick, Risa 	0  	0  	 DEFEATED -- 5th count
+Levy, Ilan 	0  	0  	 DEFEATED -- 4th count
+McNary, Jeffery 	0  	0  	 DEFEATED -- 3rd count
+Moree, Gregg J. 	0  	0  	 DEFEATED -- 2nd count
+Write-In 1 	0  	0  	 DEFEATED -- 2nd count
+Write-In 2 	0  	0  	 DEFEATED -- 2nd count
+Write-In 3 	0  	0  	 DEFEATED -- 2nd count
+Write-In 4 	0  	0  	 DEFEATED -- 2nd count
+Write-In 5 	0  	0  	 DEFEATED -- 2nd count
+Write-In 6 	0  	0  	 DEFEATED -- 2nd count
+Write-In 7 	0  	0  	 DEFEATED -- 2nd count
+Write-In 8 	0  	0  	 DEFEATED -- 2nd count
+Write-In 9 	0  	0  	 DEFEATED -- 2nd count
+EXHAUSTED PILE: 	+47  	186  	 
