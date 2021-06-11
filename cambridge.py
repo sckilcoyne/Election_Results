@@ -52,9 +52,31 @@ def plot_single_election(df, title):
     fig.suptitle(title)
 
 
+def round_gains(df):
+    continuing = df.loc[df['STATUS'] == ' CONTINUING']
+    contineGroup = continuing.groupby(['Round'])
+
+    gains = pd.DataFrame(columns=['Round', 'GainAboveExpect'])
+
+    for key, grp in contineGroup:
+        voteTotal = grp['THIS ROUND '].sum()
+        count = grp['THIS ROUND '].count()
+        percents = list((1/count) - (grp['THIS ROUND '] / voteTotal))
+        percentsArray = np.array([[key]*len(percents), percents]).transpose()
+
+        gains = gains.append(pd.DataFrame(
+            percentsArray, columns=gains.columns), ignore_index=True)
+
+    return gains
+
+
 # %% Run script
 folders = glob.glob('camb*results')
 
+gains = pd.DataFrame()
 for folder in folders:
     df = combine_results(folder)
-    plot_single_election(df, folder)
+    # plot_single_election(df, folder)
+    gains = gains.append(round_gains(df))
+
+gains.plot.scatter(x='Round', y='GainAboveExpect')
