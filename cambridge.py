@@ -10,6 +10,7 @@ import numpy as np
 import os
 import glob
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 # import plotly.graph_objects as go
 
 # %% Functions
@@ -28,28 +29,79 @@ def combine_results(folder):
     df.sort_values('Round', ignore_index=True, inplace=True)
 
     df.replace(0, np.nan, inplace=True)
-    return df
+
+    elected = list(df['CANDIDATE '].loc[df['STATUS'].str.match(
+        r' ELECTED*')].drop_duplicates())
+    return df, elected
 
 
-def plot_single_election(df, title):
+def plot_single_election(df, elected, incumbent, title):
     dfGroup = df.groupby('CANDIDATE ')
     fig, ax = plt.subplots(2, 1, figsize=(15, 10), sharex=True)
+
+    electLine = 'solid'
+    defeatLine = 'dashed'
+    exhaustLine = 'dotted'
+    incumbentColor = 'C0'
+    challengeColor = 'C1'
+    exhaustColor = 'gray'
+
     for key, grp in dfGroup:
-        ax[0].plot(grp['Round'], grp['TOTAL '], label=key)
-        ax[1].plot(grp['Round'], grp['THIS ROUND '], label=key)
+        if key in elected:
+            linestyle = electLine
+        elif key == 'EXHAUSTED PILE: ':
+            linestyle = exhaustLine
+        else:
+            linestyle = defeatLine
+
+        if key in incumbent:
+            color = incumbentColor
+        elif key == 'EXHAUSTED PILE: ':
+            color = exhaustColor
+        else:
+            color = challengeColor
+
+        ax[0].plot(grp['Round'], grp['TOTAL '],
+                   label=key, linestyle=linestyle, color=color)
+        ax[1].plot(grp['Round'], grp['THIS ROUND '],
+                   label=key, linestyle=linestyle, color=color)
 
     ax[0].set_title('Total Votes')
-    ax[1].set_title('Vote Change')
+    ax[1].set_title('Added Votes')
     ax[1].set_xlabel('Round')
 
-    changeMin = min(df['THIS ROUND '].loc[(
-        df['Round'] > 1) & (df['Round'] < max(df['Round']))])
+    # changeMin = min(df['THIS ROUND '].loc[(
+    #     df['Round'] > 1) & (df['Round'] < max(df['Round']))])
+    changeMin = 0
+    # changeMax = max(df['THIS ROUND '].loc[(
+    #     df['Round'] > 1) & (df['Round'] < max(df['Round']))])
     changeMax = max(df['THIS ROUND '].loc[(
-        df['Round'] > 1) & (df['Round'] < max(df['Round']))])
+        df['Round'] > 1) & (df['CANDIDATE '] != 'EXHAUSTED PILE: ')]) * 1.1
 
     ax[1].set_ylim([changeMin, changeMax])
+    # ax[1].set_ylim(bottom=0)
+    ax[1].set_xlim([2, max(df['Round'])])
 
-    fig.suptitle(title)
+    custom_lines = [Line2D([0], [0], color=incumbentColor, linestyle=electLine, lw=3),
+                    Line2D([0], [0], color=challengeColor,
+                           linestyle=electLine, lw=3),
+                    Line2D([0], [0], color=incumbentColor,
+                           linestyle=defeatLine, lw=3),
+                    Line2D([0], [0], color=challengeColor,
+                           linestyle=defeatLine, lw=3),
+                    Line2D([0], [0], color=exhaustColor, linestyle=exhaustLine, lw=3)]
+
+    custom_legend = ['Relected Incumbent',
+                     'Elected Challenger',
+                     'Defeated Incumbent',
+                     'Defeated Challenger',
+                     'Exhausted Ballots'],
+    ax[1].legend(custom_lines, *custom_legend, loc='upper left')
+
+    fig.suptitle(title, size='x-large', weight='bold')
+    fig.tight_layout()
+
+    fig.savefig(outputFolder + title + '.png')
 
 
 def round_gains(df):
@@ -72,11 +124,16 @@ def round_gains(df):
 
 # %% Run script
 folders = glob.glob('camb*results')
+outputFolder = 'cambOutputs/'
 
+incumbent = list()
 gains = pd.DataFrame()
 for folder in folders:
-    df = combine_results(folder)
-    # plot_single_election(df, folder)
+    df, elected = combine_results(folder)
+    plot_single_election(df, elected, incumbent, folder)
     gains = gains.append(round_gains(df))
 
-gains.plot.scatter(x='Round', y='GainAboveExpect')
+    # print(set(elected) & set(incumbent))
+    incumbent = elected
+
+# gains.plot.scatter(x='Round', y='GainAboveExpect')
