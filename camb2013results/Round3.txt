@@ -1,0 +1,36 @@
+CANDIDATE 	THIS ROUND 	TOTAL 	STATUS
+Cheung, Leland 	0  	1775  	 ELECTED -- 1st count
+Maher, David P. 	+2  	1534  	 CONTINUING
+Toomey, Jr., Timothy J. 	+7  	1488  	 CONTINUING
+Benzan, Dennis A. 	+3  	1329  	 CONTINUING
+McGovern, Marc C. 	+2  	1250  	 CONTINUING
+Simmons, E. Denise 	+6  	1239  	 CONTINUING
+Carlone, Dennis J. 	+1  	1177  	 CONTINUING
+Kelley, Craig A. 	+4  	1171  	 CONTINUING
+Mazen, Nadeem A. 	+5  	1026  	 CONTINUING
+Reeves, Kenneth E. 	+8  	979  	 CONTINUING
+vanBeuzekom, Minka Y. 	+3  	942  	 CONTINUING
+Seidel, Sam 	+5  	743  	 CONTINUING
+Smith, Jefferson R. 	+2  	609  	 CONTINUING
+Leslie, Logan Edward 	+4  	518  	 CONTINUING
+Von Hoffmann, Kristen . 	0  	440  	 CONTINUING
+House, Janneke Ann 	0  	429  	 CONTINUING
+Mirza, Mushtaque A. 	+5  	294  	 CONTINUING
+Vasquez, Luis 	+2  	275  	 CONTINUING
+Mello, Gary W. 	+1  	112  	 CONTINUING
+Yarden, Elie 	+2  	105  	 CONTINUING
+Lee, James 	+1  	102  	 CONTINUING
+Phillips, Lesley Rebec. 	+8  	97  	 CONTINUING
+Williamson, James M. 	+2  	78  	 DEFEATED -- 3rd count
+Peden, Ronald 	-49  	0  	 DEFEATED -- 2nd count
+Moree, Gregg J. 	-39  	0  	 DEFEATED -- 2nd count
+Write-In 1 	-14  	0  	 DEFEATED -- 2nd count
+Write-In 2 	-2  	0  	 DEFEATED -- 2nd count
+Write-In 3 	0  	0  	 DEFEATED -- 2nd count
+Write-In 4 	0  	0  	 DEFEATED -- 2nd count
+Write-In 5 	0  	0  	 DEFEATED -- 2nd count
+Write-In 6 	0  	0  	 DEFEATED -- 2nd count
+Write-In 7 	0  	0  	 DEFEATED -- 2nd count
+Write-In 8 	0  	0  	 DEFEATED -- 2nd count
+Write-In 9 	0  	0  	 DEFEATED -- 2nd count
+EXHAUSTED PILE: 	+31  	31  	 
