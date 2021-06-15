@@ -37,7 +37,7 @@ def combine_results(folder):
 
 def plot_single_election(df, elected, incumbent, title):
     dfGroup = df.groupby('CANDIDATE ')
-    fig, ax = plt.subplots(2, 1, figsize=(15, 10), sharex=True)
+    fig, ax = plt.subplots(2, 1, figsize=(18, 10), sharex=True)
 
     electLine = 'solid'
     defeatLine = 'dashed'
@@ -63,7 +63,9 @@ def plot_single_election(df, elected, incumbent, title):
 
         ax[0].plot(grp['Round'], grp['TOTAL '],
                    label=key, linestyle=linestyle, color=color)
-        ax[1].plot(grp['Round'], grp['THIS ROUND '],
+
+        grp2 = grp.loc[grp['Round'] > 1]
+        ax[1].plot(grp2['Round'], grp2['THIS ROUND '],
                    label=key, linestyle=linestyle, color=color)
 
     ax[0].set_title('Total Votes')
@@ -80,7 +82,9 @@ def plot_single_election(df, elected, incumbent, title):
 
     ax[1].set_ylim([changeMin, changeMax])
     # ax[1].set_ylim(bottom=0)
-    ax[1].set_xlim([2, max(df['Round'])])
+    xMax = max(df['Round'])
+    ax[1].set_xlim([1, xMax])
+    ax[1].xaxis.set_ticks(np.arange(1, xMax + 1, 1))
 
     custom_lines = [Line2D([0], [0], color=incumbentColor, linestyle=electLine, lw=3),
                     Line2D([0], [0], color=challengeColor,
