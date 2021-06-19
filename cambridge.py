@@ -170,6 +170,11 @@ for folder in folders:
     highFirstIncLoss = df['THIS ROUND '].loc[(~df['CANDIDATE '].isin(elected)) & (
         df['CANDIDATE '].isin(incumbent)) & (df['Round'] == 1)].max()
 
+    effQuota = df['TOTAL '].loc[(df['CANDIDATE '].isin(elected)) & (
+        df['Round'] == df['Round'].max())].min()
+    lastOut = df['TOTAL '].loc[(~df['CANDIDATE '].isin(elected)) & (
+        df['Round'] == df['Round'].max()-1)].max()
+
     compareResults['Incumbent'] = sorted(incumbent)
     compareResults['Elected'] = sorted(elected)
     # print(compareResults)
@@ -177,15 +182,20 @@ for folder in folders:
     print('[', reelectCount, '] re-elected ')
     # print(sorted(reelected))
 
+    print('Effective Quota: ', effQuota)
+
     print('Lowest first round elected vote: ', lowFirstWin)
     print('Highest first round defeated vote: ', highFirstLost)
 
     print('Lowest first round elected incumbent: ', lowFirstIncWin)
     print('Highest first round defeated incumbent: ', highFirstIncLoss)
 
-    print()
+    print('10th place votes: ', lastOut)
+    print('9th-10th delta: ', effQuota - lastOut)
 
+    print()
     incumbent = elected
 
 
+# gains.plot.scatter(x='Round', y='GainAboveExpect')
 # gains.plot.scatter(x='Round', y='GainAboveExpect')
