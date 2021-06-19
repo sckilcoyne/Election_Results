@@ -130,14 +130,62 @@ def round_gains(df):
 folders = glob.glob('camb*results')
 outputFolder = 'cambOutputs/'
 
-incumbent = list()
+incum2011 = ['Cheung, Leland ',
+             'Toomey, Jr., Timothy J. ',
+             'Maher, David P. ',
+             'Davis Henrietta ',
+             'Simmons, E. Denise ',
+             'Kelley, Craig A. ',
+             'Decker, Majorie C. ',
+             'vanBeuzekom, Minka Y. ',
+             'Reeves, Kenneth E. ']
+
+# incumbent = list()
+incumbent = incum2011
+compareResults = pd.DataFrame()
 gains = pd.DataFrame()
 for folder in folders:
+    print(folder)
     df, elected = combine_results(folder)
+
     plot_single_election(df, elected, incumbent, folder)
     gains = gains.append(round_gains(df))
 
-    # print(set(elected) & set(incumbent))
+    candidates = list(df['CANDIDATE '].loc[~(df['CANDIDATE '].str.match(
+        r'Write*')) & ~(df['CANDIDATE '].str.match(
+            'EXHAUSTED PILE: '))].drop_duplicates())
+
+    incumAttempt = list(set(candidates) & set(incumbent))
+
+    reelected = list(set(elected) & set(incumbent))
+    reelectCount = len(reelected)
+
+    lowFirstWin = df['THIS ROUND '].loc[(
+        df['CANDIDATE '].isin(elected)) & (df['Round'] == 1)].min()
+    highFirstLost = df['THIS ROUND '].loc[(
+        ~df['CANDIDATE '].isin(elected)) & (df['Round'] == 1)].max()
+
+    lowFirstIncWin = df['THIS ROUND '].loc[(df['CANDIDATE '].isin(elected)) & (
+        df['CANDIDATE '].isin(incumbent)) & (df['Round'] == 1)].min()
+    highFirstIncLoss = df['THIS ROUND '].loc[(~df['CANDIDATE '].isin(elected)) & (
+        df['CANDIDATE '].isin(incumbent)) & (df['Round'] == 1)].max()
+
+    compareResults['Incumbent'] = sorted(incumbent)
+    compareResults['Elected'] = sorted(elected)
+    # print(compareResults)
+    print('[', len(incumAttempt), '] incumbents attempted re-election.')
+    print('[', reelectCount, '] re-elected ')
+    # print(sorted(reelected))
+
+    print('Lowest first round elected vote: ', lowFirstWin)
+    print('Highest first round defeated vote: ', highFirstLost)
+
+    print('Lowest first round elected incumbent: ', lowFirstIncWin)
+    print('Highest first round defeated incumbent: ', highFirstIncLoss)
+
+    print()
+
     incumbent = elected
+
 
 # gains.plot.scatter(x='Round', y='GainAboveExpect')
