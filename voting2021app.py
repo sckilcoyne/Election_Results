@@ -5,13 +5,9 @@ Created on Mon Sep 20 22:23:23 2021
 @author: Scott
 """
 import streamlit as st
-# import os
-# import requests
 import pandas as pd
 import numpy as np
-# from sklearn import preprocessing
-# import pickle
-# import urllib.request
+
 
 # %% Prep Things
 # temp = '/tmp/'
@@ -23,6 +19,13 @@ githubRaw = '.pkl?raw=true'
 candidatesDf = pd.read_pickle(githubBase + 'candidateScore' + githubRaw)
 
 widgetCount = 0
+
+# %% Functions
+
+
+def normalize(data):
+    return (data - data.min()) / (data.max() - data.min())
+
 
 # %% Layout
 st.title('Cambridge 2021 Election Voting Guide')
@@ -123,43 +126,46 @@ with st.expander('Candidate Answers'):
 
 st.header('Voting Guide')
 
-# scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
-
 endorsementsScores = candidatesDf[endorseDf.index.values] * endorseWeight
 pledgesScores = candidatesDf[pledgeDf.index.values] * pledgeWeight
 questionsScores = candidatesDf[questionDf.index.values] * questionWeight
 
-bikeScore = bikeWeight * (endorsementsWeight *
-                          endorsementsScores[endorseDf[endorseDf['Bikes']
+bikeScore = endorsementsWeight *\
+    endorsementsScores[endorseDf[endorseDf['Bikes'] == True].index.values].sum(axis=1) + \
+    pledgesWeight * \
+    pledgesScores[pledgeDf[pledgeDf['Bikes'] == True].index.values].sum(axis=1) + \
+    questrionsWeight * \
+    questionsScores[questionDf[questionDf['Bikes']
+                               == True].index.values].sum(axis=1)
+
+bikeScore = normalize(bikeScore) * bikeWeight
+
+housingScore = (endorsementsWeight *
+                endorsementsScores[endorseDf[endorseDf['Housing']
+                                             == True].index.values].sum(axis=1) +
+                pledgesWeight * pledgesScores[pledgeDf[pledgeDf['Housing']
                                                        == True].index.values].sum(axis=1) +
-                          pledgesWeight * pledgesScores[pledgeDf[pledgeDf['Bikes']
-                                                                 == True].index.values].sum(axis=1) +
-                          questrionsWeight * questionsScores[questionDf[questionDf['Bikes']
-                                                                        == True].index.values].sum(axis=1))
+                questrionsWeight * questionsScores[questionDf[questionDf['Housing']
+                                                              == True].index.values].sum(axis=1))
+housingScore = normalize(housingScore) * housingWeight
 
-housingScore = housingWeight * (endorsementsWeight *
-                                endorsementsScores[endorseDf[endorseDf['Housing']
-                                                             == True].index.values].sum(axis=1) +
-                                pledgesWeight * pledgesScores[pledgeDf[pledgeDf['Housing']
-                                                                       == True].index.values].sum(axis=1) +
-                                questrionsWeight * questionsScores[questionDf[questionDf['Housing']
-                                                                              == True].index.values].sum(axis=1))
-
-environmentScore = environmentWeight * (endorsementsWeight *
-                                        endorsementsScores[endorseDf[endorseDf['Environment']
-                                                                     == True].index.values].sum(axis=1) +
-                                        pledgesWeight * pledgesScores[pledgeDf[pledgeDf['Environment']
-                                                                               == True].index.values].sum(axis=1) +
-                                        questrionsWeight * questionsScores[questionDf[questionDf['Environment']
-                                                                                      == True].index.values].sum(axis=1))
-
-equityScore = equityWeight * (endorsementsWeight *
-                              endorsementsScores[endorseDf[endorseDf['Equity']
+environmentScore = (endorsementsWeight *
+                    endorsementsScores[endorseDf[endorseDf['Environment']
+                                                 == True].index.values].sum(axis=1) +
+                    pledgesWeight * pledgesScores[pledgeDf[pledgeDf['Environment']
                                                            == True].index.values].sum(axis=1) +
-                              pledgesWeight * pledgesScores[pledgeDf[pledgeDf['Equity']
-                                                                     == True].index.values].sum(axis=1) +
-                              questrionsWeight * questionsScores[questionDf[questionDf['Equity']
-                                                                            == True].index.values].sum(axis=1))
+                    questrionsWeight * questionsScores[questionDf[questionDf['Environment']
+                                                                  == True].index.values].sum(axis=1))
+environmentScore = normalize(environmentScore) * environmentWeight
+
+equityScore = (endorsementsWeight *
+               endorsementsScores[endorseDf[endorseDf['Equity']
+                                            == True].index.values].sum(axis=1) +
+               pledgesWeight * pledgesScores[pledgeDf[pledgeDf['Equity']
+                                                      == True].index.values].sum(axis=1) +
+               questrionsWeight * questionsScores[questionDf[questionDf['Equity']
+                                                             == True].index.values].sum(axis=1))
+equityScore = normalize(equityScore) * equityWeight
 
 rawScore = bikeScore + housingScore + environmentScore + equityScore
 
