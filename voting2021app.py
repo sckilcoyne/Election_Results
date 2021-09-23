@@ -9,9 +9,9 @@ import streamlit as st
 # import requests
 import pandas as pd
 import numpy as np
-from sklearn import preprocessing
-import pickle
-import urllib.request
+# from sklearn import preprocessing
+# import pickle
+# import urllib.request
 
 # %% Prep Things
 # temp = '/tmp/'
