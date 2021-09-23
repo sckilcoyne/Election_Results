@@ -123,7 +123,7 @@ with st.expander('Candidate Answers'):
 
 st.header('Voting Guide')
 
-scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
+# scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
 
 endorsementsScores = candidatesDf[endorseDf.index.values] * endorseWeight
 pledgesScores = candidatesDf[pledgeDf.index.values] * pledgeWeight
