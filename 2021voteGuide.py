@@ -28,13 +28,18 @@ guideData = import_saved_data()
 # %% Create Useable dataframes for app
 candidateScore = guideData[guideData['Category'].isna()].drop(
     'Category', axis=1)
+candidateScore.iloc[:, 2:] = candidateScore.iloc[:, 2:].fillna(0).astype(int)
 
 data = guideData[guideData['Category'].notna()].drop(
     ['First', 'Last', 'Incumbent'], axis=1).set_index('Category').transpose()
 
-questions = data[data['Type'] == 'Question']
-endorsements = data[data['Type'] == 'Endorsement']
-pledges = data[data['Type'] == 'Pledge']
+questions = data[data['Type'] == 'Question'].drop('Type', axis=1)
+endorsements = data[data['Type'] == 'Endorsement'].drop('Type', axis=1)
+pledges = data[data['Type'] == 'Pledge'].drop('Type', axis=1)
+
+questions['Weight'] = questions['Weight'].astype(int)
+endorsements['Weight'] = endorsements['Weight'].astype(int)
+pledges['Weight'] = pledges['Weight'].astype(int)
 
 # %% Save Data to be used in app
 
