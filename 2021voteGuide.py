@@ -22,7 +22,7 @@ def import_saved_data():
 
 
 # %% Get Guide Data
-# download_sheet_data()
+download_sheet_data()
 guideData = import_saved_data()
 
 # %% Create Useable dataframes for app
