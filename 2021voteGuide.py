@@ -43,7 +43,7 @@ pledges['Weight'] = pledges['Weight'].astype(int)
 
 # %% Save Data to be used in app
 
-candidateScore.to_pickle('appDataFrames/candidateScore.pkl')
-questions.to_pickle('appDataFrames/questions.pkl')
-endorsements.to_pickle('appDataFrames/endorsements.pkl')
-pledges.to_pickle('appDataFrames/pledges.pkl')
+candidateScore.to_pickle('appDataFrames/candidateScore.pkl', protocol=3)
+questions.to_pickle('appDataFrames/questions.pkl', protocol=3)
+endorsements.to_pickle('appDataFrames/endorsements.pkl', protocol=3)
+pledges.to_pickle('appDataFrames/pledges.pkl', protocol=3)
