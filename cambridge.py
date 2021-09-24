@@ -199,3 +199,21 @@ for folder in folders:
 
 # gains.plot.scatter(x='Round', y='GainAboveExpect')
 # gains.plot.scatter(x='Round', y='GainAboveExpect')
+
+# %% Election-Election Placing
+
+placeDf = pd.DataFrame()
+
+for folder in folders:
+    files = os.listdir(folder + '/')
+    finalRound = max([int(sub.split('.')[0][5:]) for sub in files])
+    file = 'Round' + str(finalRound) + '.txt'
+    print(finalRound, file)
+
+    roundResults = pd.read_csv(folder + '/' + file, sep='	')
+    roundResults['Year'] = folder[4:8]
+
+    placeDf = placeDf.append(roundResults)
+
+placeDf.drop(columns=['THIS ROUND ', 'TOTAL '], inplace=True)
+placeDf.reset_index(drop=True, inplace=True)
