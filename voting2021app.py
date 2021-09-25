@@ -185,7 +185,11 @@ scoreDf['Equity Score'] = equityScore
 scoreDf.sort_values(by=['Combined Score'], ascending=False, inplace=True)
 
 # Keep only top candidates
-scoreDf = scoreDf.iloc[:11, :]
+incumbentCount = 3
+scoreDf.reset_index(drop=True, inplace=True)
+incumbenmtThreshold = scoreDf.index[scoreDf['Incumbent']
+                                    == True][incumbentCount]
+scoreDf = scoreDf.iloc[:incumbenmtThreshold, :]
 
 scoreDf.sort_values(by=['Incumbent'], ascending=True, inplace=True)
 
@@ -194,34 +198,44 @@ scoreDf.index += 1
 
 st.dataframe(scoreDf)
 
+'''
+Voting guide shows highest scoring candidates up to the third incumbent, sorted 
+by non-incumbents first. See below notes for detailed explaination.
+'''
+
 
 # %% Incumbency
 with st.expander('Voting Strategy and Incumbency Notes'):
 
     '''
-    Cambridge elects 9 council members every two years. All candidates are in 
-    the same at-large race. Voting is done through a system of Ranked Choice 
-    Voting (RCV) where every voter can order their preffered candidates.
+    Cambridge elects 9 council members every two years. All candidates are in
+    the same at-large race. Voting is done through a system of Ranked Choice
+    Voting (RCV) where every voter can order their preferred candidates.
 
     Votes are first counted by every ballot's first choice. In the first round,
-    if a candidate does not recieve at least 50 votes, they are eliminated and 
+    if a candidate does not receive at least 50 votes, they are eliminated and
     the ballots are redistributed to the remaining candidates based on the next
     preference. Once a candidate reaches 10% of the total cast ballots + 1 vote
     (reached the threshold), they are elected to the council. If an elected
     candidate has more votes than the threshold, a random selection of ballots
-    equal to the votes excess of the threshold are redistributed based on next 
+    equal to the votes excess of the threshold are redistributed based on next
     eligible preference (yay Cambridge having non-deterministic elections!).
-    Every round the lowest ranked candidate is eliminated and their votes are 
-    redistributed. This continues until 9 candidates exceed the threshold or 
-    there are only 9 candiadtes remaining.
+    Every round the lowest ranked candidate is eliminated and their votes are
+    redistributed. This continues until 9 candidates exceed the threshold or
+    there are only 9 candidates remaining.
 
     Reading the above paragraph, if you want your vote to count the most, you
     should be ranking numerous candidates, even if your top few choices are
     very likely to be elected, since you might have your ballot actually voting
     for a lower preference.
 
-    In the electrions since 2013 (last election with easily scrapable results), 
-    incumbency leads to a huge relection advantage. On average, only 1 incumbent
+    In the elections since 2013 (last election with easily scrapable results),
+    incumbency leads to a huge re-election advantage. On average, only 1 incumbent
     loses re-election per cycle (with 2 being the max). This suggests that the
     optimal voting strategy is to first vote for your most prefered non-incumbent.
     '''
+
+    githubRepo = 'https://raw.githubusercontent.com/sckilcoyne/Election_Results/'
+    githubURL = githubRepo + 'main/' + 'cambOutputs/'
+    st.markdown('![Subsequent Election Finshing Order](' + githubURL +
+                'Finishing%20Place%20in%20Subsequent%20Cycle.png)')
