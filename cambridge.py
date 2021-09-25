@@ -12,6 +12,10 @@ import glob
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 # import plotly.graph_objects as go
+from matplotlib.collections import PatchCollection
+from matplotlib.patches import Rectangle
+
+plt.style.use('dark_background')
 
 # %% Functions
 
@@ -202,18 +206,69 @@ for folder in folders:
 
 # %% Election-Election Placing
 
+print('Election to election finishing order')
 placeDf = pd.DataFrame()
 
 for folder in folders:
     files = os.listdir(folder + '/')
     finalRound = max([int(sub.split('.')[0][5:]) for sub in files])
     file = 'Round' + str(finalRound) + '.txt'
-    print(finalRound, file)
+    print(file)
 
     roundResults = pd.read_csv(folder + '/' + file, sep='	')
-    roundResults['Year'] = folder[4:8]
 
-    placeDf = placeDf.append(roundResults)
+    year = folder[4:8]
+    roundResults['Place_' + folder[4:8]] = roundResults.index + 1
 
-placeDf.drop(columns=['THIS ROUND ', 'TOTAL '], inplace=True)
-placeDf.reset_index(drop=True, inplace=True)
+    roundResults = roundResults[roundResults['CANDIDATE '].str.contains(
+        'EXHAUSTED') == False]
+    roundResults = roundResults[roundResults['CANDIDATE '].str.contains(
+        'Write') == False]
+
+    roundResults.drop(
+        columns=['THIS ROUND ', 'TOTAL ', 'STATUS'], inplace=True)
+
+    roundResults.set_index('CANDIDATE ', inplace=True)
+
+    placeDf = placeDf.merge(roundResults, how='outer',
+                            left_index=True, right_index=True)
+
+
+# %% Plot
+
+x = 'Year 0'
+y = 'Year +2'
+
+yearCompare = pd.DataFrame(columns=[x, y])
+for year in range(placeDf.shape[1]):
+    if year < placeDf.shape[1] - 1:
+
+        adjacentYear = placeDf.iloc[:, year:year+2]
+        adjacentYear.columns = [x, y]
+        yearCompare = yearCompare.append(adjacentYear, ignore_index=True)
+
+yearCompare.dropna(inplace=True)
+maxPlace = yearCompare.max().max()
+
+fig, ax = plt.subplots(1, 1, figsize=(10, 10), sharex=True)
+
+
+# Highlight Election Winners
+winBox = [Rectangle((0, 0), 9, 9)]
+ax.add_collection(PatchCollection(
+    winBox, facecolor='g', alpha=0.2, edgecolor='None'))
+
+ax.grid(which='both', alpha=0.2)
+ax.minorticks_on()
+
+ax.scatter(yearCompare[x], yearCompare[y])
+
+title = 'Finishing Place in Subsequent Cycle'
+ax.set_title(title)
+ax.set_xlabel('Elected Order')
+ax.set_ylabel('Elected Order in Subsequent Election')
+ax.set_xlim(0, maxPlace + 1)
+ax.set_ylim(0, maxPlace + 1)
+ax.set_aspect('equal', adjustable='box')
+
+fig.savefig(outputFolder + title + '.png')
