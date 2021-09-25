@@ -28,6 +28,11 @@ def normalize(data):
 
 
 # %% Layout
+st.set_page_config(page_title='Cambridge 2021 Voting Guide',
+                   page_icon=':ballot_box_with_ballot:',
+                   initial_sidebar_state='expanded',
+                   layout='wide')
+
 st.title('Cambridge 2021 Election Voting Guide')
 
 # %% Preferences
