@@ -290,7 +290,7 @@ scoreDf.reset_index(drop=True, inplace=True)
 displayCol, biasCol = st.columns([1, 1])
 displayCount = displayCol.slider('Display Candidates', min_value=5,
                                  max_value=15, step=1, value=11)
-incumbentBias = biasCol.slider('Incumbency Adjustment', value=0.85, step=0.05,
+incumbentBias = biasCol.slider('Incumbency Adjustment', value=0.8, step=0.05,
                                help='Multiply the Combined Score of Incumbents to prioritize non-incumbents for strategic voting. 1.0 is equivalent to ignoring incumbency.')
 
 scoreDf = scoreDf.iloc[:displayCount, :]
