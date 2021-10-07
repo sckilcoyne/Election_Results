@@ -232,9 +232,9 @@ environmentScorePledge = pledgesScores[pledgeDf[pledgeDf['Environment'] == True]
 environmentScoreAnswers = questionsScores[questionDf[questionDf['Environment'] == True].index.values].sum(
     axis=1)
 
-environmentScore = endorsementsWeight * normalize(housingScoreEndorsement) + \
-    pledgesWeight * normalize(housingScorePledge) + \
-    questionsWeight * normalize(housingScoreAnswers)
+environmentScore = endorsementsWeight * normalize(environmentScoreEndorsement) + \
+    pledgesWeight * normalize(environmentScorePledge) + \
+    questionsWeight * normalize(environmentScoreAnswers)
 
 environmentScore = normalize(environmentScore) * environmentWeight
 
@@ -246,9 +246,9 @@ equityScorePledge = pledgesScores[pledgeDf[pledgeDf['Equity'] == True].index.val
 equityScoreAnswers = questionsScores[questionDf[questionDf['Equity'] == True].index.values].sum(
     axis=1)
 
-equityScore = endorsementsWeight * normalize(housingScoreEndorsement) + \
-    pledgesWeight * normalize(housingScorePledge) + \
-    questionsWeight * normalize(housingScoreAnswers)
+equityScore = endorsementsWeight * normalize(equityScoreEndorsement) + \
+    pledgesWeight * normalize(equityScorePledge) + \
+    questionsWeight * normalize(equityScoreAnswers)
 
 equityScore = normalize(equityScore) * equityWeight
 
@@ -269,22 +269,50 @@ scoreDf['Equity Score'] = equityScore
 
 # Sort by points
 scoreDf.sort_values(by=['Combined Score'], ascending=False, inplace=True)
-
-# Keep only top candidates
-incumbentCount = 3
 scoreDf.reset_index(drop=True, inplace=True)
-incumbenmtThreshold = scoreDf.index[scoreDf['Incumbent']
-                                    == True][incumbentCount]
-scoreDf = scoreDf.iloc[:incumbenmtThreshold, :]
 
-scoreDf.sort_values(by=['Incumbent'], ascending=True, inplace=True)
+# # Raise top non-incumbent candidates
+# incumbentCount = 4
+# incumbenmtThreshold = scoreDf.index[scoreDf['Incumbent']
+#                                     == True][incumbentCount - 1]
 
+# topScores = scoreDf.iloc[:incumbenmtThreshold + 1, :]
+
+# topScores.sort_values(by=['Incumbent'], ascending=True, inplace=True)
+
+# topScores.reset_index(drop=True, inplace=True)
+
+# st.write('scoreDf', scoreDf, 'topScores', topScores)
+
+# scoreDf.iloc[:topScores.index[-1]+1, :] = topScores
+
+# Voting Guide
+displayCol, biasCol = st.columns([1, 1])
+displayCount = displayCol.slider('Display Candidates', min_value=5,
+                                 max_value=15, step=1, value=11)
+incumbentBias = biasCol.slider('Incumbency Adjustment', value=0.85, step=0.05,
+                               help='Multiply the Combined Score of Incumbents to prioritize non-incumbents for strategic voting. 1.0 is equivalent to ignoring incumbency.')
+
+scoreDf = scoreDf.iloc[:displayCount, :]
+
+# scoreDf.index += 1
+
+
+# Adjusted Scoring
+
+adjScore = scoreDf['Combined Score'][scoreDf['Incumbent']
+                                     == True] * incumbentBias
+
+scoreDf.insert(2, 'Adjusted Score',  scoreDf['Combined Score'])
+scoreDf.loc[adjScore.index, 'Adjusted Score'] = adjScore
+
+scoreDf.sort_values(by=['Adjusted Score'], ascending=False, inplace=True)
 scoreDf.reset_index(drop=True, inplace=True)
 scoreDf.index += 1
 
 st.dataframe(scoreDf)
 
 '''
-Voting guide shows highest scoring candidates up to the third incumbent, sorted 
-by non-incumbents first. See intro notes for detailed explaination.
+Voting guide shows highest scoring candidates, with some bias for 
+non-incumbents. See intro notes for detailed explaination.
 '''
