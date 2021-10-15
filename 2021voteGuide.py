@@ -29,6 +29,8 @@ guideData = import_saved_data()
 candidateScore = guideData[guideData['Category'].isna()].drop(
     'Category', axis=1)
 candidateScore.iloc[:, 2:] = candidateScore.iloc[:, 2:].fillna(0).astype(int)
+candidateScore.sort_values(by=['Last'], ascending=True, inplace=True)
+candidateScore.reset_index(drop=True, inplace=True)
 
 data = guideData[guideData['Category'].notna()].drop(
     ['First', 'Last', 'Incumbent'], axis=1).set_index('Category').transpose()
@@ -41,9 +43,11 @@ questions['Weight'] = questions['Weight'].astype(int)
 endorsements['Weight'] = endorsements['Weight'].astype(int)
 pledges['Weight'] = pledges['Weight'].astype(int)
 
+
 # %% Save Data to be used in app
 
 candidateScore.to_pickle('appDataFrames/candidateScore.pkl', protocol=3)
 questions.to_pickle('appDataFrames/questions.pkl', protocol=3)
 endorsements.to_pickle('appDataFrames/endorsements.pkl', protocol=3)
 pledges.to_pickle('appDataFrames/pledges.pkl', protocol=3)
+
