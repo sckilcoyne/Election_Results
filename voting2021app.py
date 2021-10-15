@@ -47,7 +47,7 @@ st.set_page_config(page_title='Cambridge 2021 Voting Guide',
 st.title('Cambridge 2021 Election Voting Guide')
 
 # %% Preferences
-st.sidebar.header('Preferences')
+st.sidebar.title('Preferences')
 
 st.sidebar.write('Set weights of topic preferences.')
 
