@@ -62,7 +62,7 @@ for topic in topics:
 st.sidebar.write('Set weights of category preferences.')
 
 endorsementsWeight = st.sidebar.slider(
-    'Endorsements', min_value=0, max_value=5, value=3)
+    'Endorsements', min_value=0, max_value=5, value=2)
 pledgesWeight = st.sidebar.slider(
     'Pledges', min_value=0, max_value=5, value=4)
 questionsWeight = st.sidebar.slider(
