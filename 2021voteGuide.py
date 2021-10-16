@@ -30,7 +30,7 @@ guideData = import_saved_data()
 # Make Table of Candidate endorsements/answers
 candidateScore = guideData[guideData['Category'].isna()].drop(
     ['Category', 'Topic Weight'], axis=1)
-candidateScore.iloc[:, 3:] = candidateScore.iloc[:, 3:].fillna(0).astype(int)
+candidateScore.iloc[:, 2:] = candidateScore.iloc[:, 2:].fillna(0).astype(int)
 candidateScore.sort_values(by=['Last'], ascending=True, inplace=True)
 candidateScore.reset_index(drop=True, inplace=True)
 
