@@ -22,6 +22,8 @@ endorseDf = pd.read_pickle(githubBase + 'endorsements' + githubRaw)
 pledgeDf = pd.read_pickle(githubBase + 'pledges' + githubRaw)
 questionDf = pd.read_pickle(githubBase + 'questions' + githubRaw)
 
+topicWeights = pd.read_pickle(githubBase + 'topicWeights' + githubRaw)
+
 topics = endorseDf.columns.values[:-1]
 
 widgetCount = 0
@@ -53,16 +55,18 @@ st.sidebar.write('Set weights of topic preferences.')
 
 topicWeight = pd.DataFrame()
 for topic in topics:
-    topicWeight.loc[topic,'Weight'] = st.sidebar.slider(topic, min_value=0, max_value=5, value=3)
+    weight = topicWeights[topic].astype(int).item()
+    topicWeight.loc[topic, 'Weight'] = st.sidebar.slider(
+        topic, min_value=0, max_value=5, value=weight)
 
 st.sidebar.write('Set weights of category preferences.')
 
 endorsementsWeight = st.sidebar.slider(
-    'Endorsements', min_value=0, max_value=5, value=4)
+    'Endorsements', min_value=0, max_value=5, value=3)
 pledgesWeight = st.sidebar.slider(
-    'Pledges', min_value=0, max_value=5, value=3)
+    'Pledges', min_value=0, max_value=5, value=4)
 questionsWeight = st.sidebar.slider(
-    'Questions', min_value=0, max_value=5, value=2)
+    'Questions', min_value=0, max_value=5, value=3)
 
 # %% Intro
 with st.expander('How this works'):
@@ -130,8 +134,8 @@ with st.expander('Endorsement Weighting'):
     for endorser in endorsers:
         defaultWeight = int(endorseDf.at[endorser, 'Weight'])
         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-        if limits == [0,0]:
-            limits = [-3,3]
+        if limits == [0, 0]:
+            limits = [-3, 3]
         max_value = int(max(limits))
         min_value = int(min(limits))
         endorseWeight.append(st.slider(
@@ -154,8 +158,8 @@ with st.expander('Pledge Weighting'):
     for pledge in pledgeList:
         defaultWeight = int(pledgeDf.at[pledge, 'Weight'])
         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-        if limits == [0,0]:
-            limits = [-3,3]
+        if limits == [0, 0]:
+            limits = [-3, 3]
         max_value = int(max(limits))
         min_value = int(min(limits))
         pledgeWeight.append(st.slider(
@@ -178,8 +182,8 @@ with st.expander('Question Weighting'):
     for question in questionList:
         defaultWeight = int(questionDf.at[question, 'Weight'])
         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-        if limits == [0,0]:
-            limits = [-3,3]
+        if limits == [0, 0]:
+            limits = [-3, 3]
         max_value = int(max(limits))
         min_value = int(min(limits))
         questionWeight.append(st.slider(
@@ -192,15 +196,17 @@ with st.expander('Candidate Answers'):
     answers = candidatesDf[cols]
     answers.iloc[:, 2:] = answers.iloc[:, 2:].fillna(0).astype(int)
     st.dataframe(answers)
-    
+
 # %% Manual Adjustments
 manualAdjustment = pd.DataFrame()
 with st.expander('Manual Adjustments'):
     # st.write(candidatesDf)
     for index, candidate in candidatesDf.iterrows():
         name = candidate['First'] + ' ' + candidate['Last']
-        candidateAdjustment = st.slider(name,min_value=-5.0,max_value=5.0,value=0.0,step=0.1)
-        manualAdjustment.loc[candidate['Last'],'Manual Adjustment'] = candidateAdjustment
+        candidateAdjustment = st.slider(
+            name, min_value=-5.0, max_value=5.0, value=0.0, step=0.1)
+        manualAdjustment.loc[candidate['Last'],
+                             'Manual Adjustment'] = candidateAdjustment
 
 # %% Voting Calculation
 
@@ -213,23 +219,27 @@ questionsScores = candidatesDf[questionDf.index.values] * questionWeight
 # Topic Scores
 scoreDf = pd.DataFrame(candidatesDf.iloc[:, :2])
 for topic in topics:
-    scoreEndorse = endorsementsScores[endorseDf[endorseDf[topic] == True].index.values].sum(axis=1)
-    scorePledge = endorsementsScores[endorseDf[endorseDf[topic] == True].index.values].sum(axis=1)
-    scoreAnswers = endorsementsScores[endorseDf[endorseDf[topic] == True].index.values].sum(axis=1)
-    
+    scoreEndorse = endorsementsScores[endorseDf[endorseDf[topic] == True].index.values].sum(
+        axis=1)
+    scorePledge = pledgesScores[pledgeDf[pledgeDf[topic] == True].index.values].sum(
+        axis=1)
+    scoreAnswers = questionsScores[questionDf[questionDf[topic] == True].index.values].sum(
+        axis=1)
+
     topicScore = endorsementsWeight * normalize(scoreEndorse) + \
-    pledgesWeight * normalize(scorePledge) + \
-    questionsWeight * normalize(scoreAnswers)
-    
-    topicScore = normalize(topicScore) * topicWeight.loc[topic,'Weight']
-    scoreDf[topic]  = topicScore
+        pledgesWeight * normalize(scorePledge) + \
+        questionsWeight * normalize(scoreAnswers)
+
+    topicScore = normalize(topicScore) * topicWeight.loc[topic, 'Weight']
+    scoreDf[topic] = topicScore
+
 
 # Combined Scores
-scoreDf = scoreDf.merge(manualAdjustment,how='inner', left_on='Last',right_index=True)
+scoreDf = scoreDf.merge(manualAdjustment, how='inner',
+                        left_on='Last', right_index=True)
 scoreDf['Combined Score'] = scoreDf.sum(axis=1)
 
-scoreDf['Incumbent'] = candidatesDf['Incumbent'].astype(bool)
-
+scoreDf['Incumbent'] = candidatesDf['Incumbent'].fillna(0).astype(bool)
 
 # Sort by points
 scoreDf.sort_values(by=['Combined Score'], ascending=False, inplace=True)
@@ -259,10 +269,10 @@ scoreDf.index += 1
 
 cols = list(scoreDf)
 
-colsFront = ['First', 'Last','Incumbent','Adjusted Score','Combined Score']
+colsFront = ['First', 'Last', 'Incumbent', 'Adjusted Score', 'Combined Score']
 for col in reversed(colsFront):
     cols.insert(0, cols.pop(cols.index(col)))
-scoreDf = scoreDf.loc[:,cols]
+scoreDf = scoreDf.loc[:, cols]
 
 st.dataframe(scoreDf)
 
