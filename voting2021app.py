@@ -278,5 +278,9 @@ st.dataframe(scoreDf)
 
 '''
 Voting guide shows highest scoring candidates, with some bias for 
-non-incumbents. See intro notes for detailed explaination.
+non-incumbents. See intro notes for detailed explaination. You should play with 
+the sliders because some of this data is pretty sparse (e.g. non-response of 
+questionaires, not all candidates wanting to get all endorsements they could get).
+The data used also misses a bunch of nuance in the candidates (e.g. Mallon's 
+focus on school meals), which is where the manual adjustments can compensate.
 '''
