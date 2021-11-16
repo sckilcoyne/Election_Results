@@ -252,7 +252,6 @@ maxPlace = yearCompare.max().max()
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 10), sharex=True)
 
-
 # Highlight Election Winners
 winBox = [Rectangle((0, 0), 9, 9)]
 ax.add_collection(PatchCollection(
@@ -261,7 +260,13 @@ ax.add_collection(PatchCollection(
 ax.grid(which='both', alpha=0.2)
 ax.minorticks_on()
 
+# Plot finishes
 ax.scatter(yearCompare[x], yearCompare[y])
+
+# Add linear fit
+linFit = np.poly1d(np.polyfit(yearCompare[x], yearCompare[y], 1))
+xs = np.arange(1, maxPlace + 1)
+ax.plot(xs, linFit(xs))
 
 title = 'Finishing Place in Subsequent Cycle'
 ax.set_title(title)
