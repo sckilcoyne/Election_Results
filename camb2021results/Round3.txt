@@ -1,0 +1,30 @@
+CANDIDATE 	THIS ROUND 	TOTAL 	STATUS
+Siddiqui, Sumbul 	0  	2182  	 ELECTED -- 1st count
+Nolan, Patricia M. 	+2  	2145  	 CONTINUING
+Simmons, E. Denise 	+1  	2089  	 CONTINUING
+McGovern, Marc C. 	+5  	1773  	 CONTINUING
+Toner, Paul F. 	0  	1756  	 CONTINUING
+Azeem, Burhan 	+1  	1567  	 CONTINUING
+Mallon, Alanna M. 	0  	1552  	 CONTINUING
+Carlone, Dennis J. 	0  	1544  	 CONTINUING
+Zondervan, Quinton Y. 	+1  	1432  	 CONTINUING
+Sobrinho-Wheeler, Jivan 	+2  	1365  	 CONTINUING
+Williams, Nicola A. 	0  	1244  	 CONTINUING
+Skeadas, Theodora Theo 	+4  	915  	 CONTINUING
+McGuirk, Joe 	0  	641  	 CONTINUING
+Bullister, Dana 	+3  	548  	 CONTINUING
+Hicks, Tonia D. 	+1  	410  	 CONTINUING
+Pierre, Frantz 	0  	382  	 CONTINUING
+Levy, Ilan 	0  	99  	 CONTINUING
+Moree, Gregg J. 	0  	83  	 CONTINUING
+Eckstut, Robert 	0  	74  	 DEFEATED -- 3rd count
+Write-In 1 	-32  	0  	 DEFEATED -- 2nd count
+Write-In 9 	-1  	0  	 DEFEATED -- 2nd count
+Write-In 2 	0  	0  	 DEFEATED -- 2nd count
+Write-In 3 	0  	0  	 DEFEATED -- 2nd count
+Write-In 4 	0  	0  	 DEFEATED -- 2nd count
+Write-In 5 	0  	0  	 DEFEATED -- 2nd count
+Write-In 6 	0  	0  	 DEFEATED -- 2nd count
+Write-In 7 	0  	0  	 DEFEATED -- 2nd count
+Write-In 8 	0  	0  	 DEFEATED -- 2nd count
+EXHAUSTED PILE: 	+13  	13  	 
