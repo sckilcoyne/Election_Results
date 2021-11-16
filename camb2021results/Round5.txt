@@ -27,4 +27,4 @@ Write-In 5 	0  	0  	 DEFEATED -- 2nd count
 Write-In 6 	0  	0  	 DEFEATED -- 2nd count
 Write-In 7 	0  	0  	 DEFEATED -- 2nd count
 Write-In 8 	0  	0  	 DEFEATED -- 2nd count
-EXHAUSTED PILE: 	+11  	34  	   	 
+EXHAUSTED PILE: 	+11  	34  	 
