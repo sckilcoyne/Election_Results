@@ -15,11 +15,11 @@ def download_sheet_data():
 
     guideData = pd.read_excel(googleSheet, sheet_name='Guide Data')
 
-    guideData.to_pickle('appDataFrames/guideData.pkl', protocol=3)
+    guideData.to_pickle('appDataFrames2023/guideData.pkl', protocol=3)
 
 
 def import_saved_data():
-    return pd.read_pickle('appDataFrames/guideData.pkl')
+    return pd.read_pickle('appDataFrames2023/guideData.pkl')
 
 
 # %% Get Guide Data
@@ -54,7 +54,7 @@ topicWeights = guideData[guideData['Category'].notna()].drop(
         ['Weight', 'Type'], axis=0)['Topic Weight']
 
 # %% Save Data to be used in app
-pickleFolder = 'appDataFrames/'
+pickleFolder = 'appDataFrames2023/'
 
 candidateScore.to_pickle(pickleFolder + 'candidateScore.pkl', protocol=3)
 questions.to_pickle(pickleFolder + 'questions.pkl', protocol=3)
