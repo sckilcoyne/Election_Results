@@ -55,11 +55,11 @@ st.title('2023 Cambridge Council Election Voting Guide')
 
 tabNames = ['Voting Guide',
             'How this works',
-            'Endorsement Weighting',
+            'Endorsement Weights',
             'Endorsements',
-            'Pledge Weighting',
-            'Endorsement Weighting',
+            'Pledge Weights',
             'Candidate Pledges',
+            'Question Weights',
             'Candidate Answers',
             'Manual Adjustments'
             ]
