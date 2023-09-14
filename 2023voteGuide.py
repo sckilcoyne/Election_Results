@@ -2,6 +2,8 @@
 """
 Created on Mon Sep 20 22:47:32 2021
 
+https://docs.google.com/spreadsheets/d/1NzgAYpCYGcOoGnopR5xPZA474-S41oB0cxNsIzdB9Hw/edit#gid=1323809669
+
 @author: Scott
 """
 

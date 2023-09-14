@@ -8,14 +8,19 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+# Pylint doesn't like text blocks for streamlit
+#pylint: disable=pointless-string-statement, line-too-long
 
+
+print('\n\nNew Run')
 # %% Prep Things
 # temp = '/tmp/'
 # os.makedirs(temp, exist_ok=True)  # Make temp directory if needed
 
-githubBase = 'https://github.com/sckilcoyne/Election_Results/blob/main/appDataFrames/'
+githubBase = 'https://github.com/sckilcoyne/Election_Results/blob/main/appDataFrames2023/'
 githubRaw = '.pkl?raw=true'
 
+# print(githubBase + 'candidateScore' + githubRaw)
 candidatesDf = pd.read_pickle(githubBase + 'candidateScore' + githubRaw)
 
 endorseDf = pd.read_pickle(githubBase + 'endorsements' + githubRaw)
@@ -41,12 +46,24 @@ def normalize(data):
 
 
 # %% Layout
-st.set_page_config(page_title='Cambridge 2021 Voting Guide',
+st.set_page_config(page_title='2023 Cambridge Voting Guide',
                    page_icon=':ballot_box_with_ballot:',
                    initial_sidebar_state='expanded',
                    layout='wide')
 
-st.title('Cambridge 2021 Election Voting Guide')
+st.title('2023 Cambridge Council Election Voting Guide')
+
+tabNames = ['Voting Guide',
+            'How this works',
+            'Endorsement Weighting',
+            'Endorsements',
+            'Pledge Weighting',
+            'Endorsement Weighting',
+            'Candidate Pledges',
+            'Candidate Answers',
+            'Manual Adjustments'
+            ]
+tabVote, tabIntro, tabEndorsWeight, tabEndorse, tabPledgeWeight, tabPledge, tabQuestionWeight, tabAnswers, tabManual = st.tabs(tabNames)
 
 # %% Preferences
 st.sidebar.title('Preferences')
@@ -69,11 +86,24 @@ questionsWeight = st.sidebar.slider(
     'Questions', min_value=0, max_value=5, value=3)
 
 # %% Intro
-with st.expander('How this works'):
+with tabIntro:
     '''
     ## About this app
-    This is an app I created to help me figure out how to vote in the 2021 Cambridge City Council election. I have gathered and coded endorsements, pledges and questionnaire answers for all of the candidates in the race ([Google Doc](https://docs.google.com/spreadsheets/d/195MWS2K34Qgm7pJyC71Rh-lXdjmb8xoc6oKdPIvExlY/edit?usp=sharing)). If you think I am missing something, you can comment on the sheet. As this app was created to help me, the default weights reflect my personal pro-biking/housing/environment/equity views. You can view all of the poorly written source code on [GitHub](https://github.com/sckilcoyne/Election_Results).
+    This is an app I created to help me figure out how to vote in the Cambridge City Council election. I have gathered and coded endorsements, pledges and questionnaire answers for all of the candidates in the race ([Google Doc](https://docs.google.com/spreadsheets/d/1NzgAYpCYGcOoGnopR5xPZA474-S41oB0cxNsIzdB9Hw/edit?usp=sharing)). If you think I am missing something, you can comment on the sheet. As this app was created to help me, the default weights reflect my personal pro-biking/housing/environment/equity views. You can view all of the poorly written source code on [GitHub](https://github.com/sckilcoyne/Election_Results).
 
+    ## About the Scoring
+    This whole system is basically a Pugh Matrix.
+    
+    On the sidebar, you can change the weights of different topics and types of data. The scale is from 0-5, with 5 being more preferred and 0 ignoring that aspect.
+    
+    In the “Weighting” expanders, you can see and adjust the weights of each endorsement/pledge/question. In the other expanders, you can see how each candidate is scored for each data point.
+    
+    The “Voting Guide” table lists the topic scores for each candidate and a combined score, which is a sum of the topic scores. 
+    
+    The topic scores are calculated for each topic and data type by multiplying the candidates’ score by the weight of the data point, then summing up their scores for each data point for that sub-type, e.g. all endorsements related to bikes or all answers related to housing. Then, all of these scores are normalized within that subtype so the highest scoring candidate gets a 1 and the lowest scoring candidate gets a 0 and everyone in between are scaled linearly. This 0 to 1 score is then multiplied by the type weighting, e.g. pledge weighting. Each type score is then added together and the candidate scores are normalized by the topic and multiplied by the topic weighting, e.g. environment weight.
+    
+    The sorting of the candidates is something I am still trying to improve. Right now, the first few non-incumbents are sorted above incumbents that may have a higher score because I think this will be a more optimal voting strategy. I am happy to get suggestions on how to better sort.
+    
     ## About the Election
     Cambridge City Council is composed of 9 seats with 2 year terms. All seats are at-large on the same ballot. Cambridge uses a form of Ranked Choice Voting called Single Transferable Vote, where you list candidates in order of preference and your top vote is counted until that candidate is eliminated, at which point your next non-eliminated candidate is voted for. 
 
@@ -108,28 +138,13 @@ with st.expander('How this works'):
     st.markdown('![Subsequent Election Finishing Order](' + githubURL +
                 'Finishing%20Place%20in%20Subsequent%20Cycle.png)')
 
-    '''
-    ## About the Scoring
-    This whole system is basically a Pugh Matrix.
-    
-    On the sidebar, you can change the weights of different topics and types of data. The scale is from 0-5, with 5 being more preferred and 0 ignoring that aspect.
-    
-    In the “Weighting” expanders, you can see and adjust the weights of each endorsement/pledge/question. In the other expanders, you can see how each candidate is scored for each data point.
-    
-    The “Voting Guide” table lists the topic scores for each candidate and a combined score, which is a sum of the topic scores. 
-    
-    The topic scores are calculated for each topic and data type by multiplying the candidates’ score by the weight of the data point, then summing up their scores for each data point for that sub-type, e.g. all endorsements related to bikes or all answers related to housing. Then, all of these scores are normalized within that subtype so the highest scoring candidate gets a 1 and the lowest scoring candidate gets a 0 and everyone in between are scaled linearly. This 0 to 1 score is then multiplied by the type weighting, e.g. pledge weighting. Each type score is then added together and the candidate scores are normalized by the topic and multiplied by the topic weighting, e.g. environment weight.
-    
-    The sorting of the candidates is something I am still trying to improve. Right now, the first few non-incumbents are sorted above incumbents that may have a higher score because I think this will be a more optimal voting strategy. I am happy to get suggestions on how to better sort.
-    '''
-
 
 # %% Endorsements
 
 endorsers = list(endorseDf.index.values)
 endorseWeight = list()
 
-with st.expander('Endorsement Weighting'):
+with tabEndorsWeight:
 
     for endorser in endorsers:
         defaultWeight = int(endorseDf.at[endorser, 'Weight'])
@@ -142,18 +157,18 @@ with st.expander('Endorsement Weighting'):
             endorser, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
         widgetCount += 1
 
-with st.expander('Endorsements'):
+with tabEndorse:
     cols = ['First', 'Last'] + endorsers
 
     endorsements = candidatesDf[cols]
-    st.dataframe(endorsements)
+    st.dataframe(endorsements, hide_index=True)
 
 # %% Pledges
 
 pledgeList = list(pledgeDf.index.values)
 pledgeWeight = list()
 
-with st.expander('Pledge Weighting'):
+with tabPledgeWeight:
 
     for pledge in pledgeList:
         defaultWeight = int(pledgeDf.at[pledge, 'Weight'])
@@ -166,18 +181,18 @@ with st.expander('Pledge Weighting'):
             pledge, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
         widgetCount += 1
 
-with st.expander('Candidate Pledges'):
+with tabPledge:
     cols = ['First', 'Last'] + pledgeList
 
     pledges = candidatesDf[cols]
-    st.dataframe(pledges)
+    st.dataframe(pledges, hide_index=True)
 
 # %% Questions
 
 questionList = list(questionDf.index.values)
 questionWeight = list()
 
-with st.expander('Question Weighting'):
+with tabQuestionWeight:
 
     for question in questionList:
         defaultWeight = int(questionDf.at[question, 'Weight'])
@@ -190,16 +205,19 @@ with st.expander('Question Weighting'):
             question, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
         widgetCount += 1
 
-with st.expander('Candidate Answers'):
+with tabAnswers:
     cols = ['First', 'Last'] + questionList
 
     answers = candidatesDf[cols]
-    answers.iloc[:, 2:] = answers.iloc[:, 2:].fillna(0).astype(int)
-    st.dataframe(answers)
+    # print(answers)
+    # answers.loc[:, 2:] = answers.iloc[:, 2:].fillna(0).astype(int)
+    answers = answers.fillna(0)
+
+    st.dataframe(answers, hide_index=True)
 
 # %% Manual Adjustments
 manualAdjustment = pd.DataFrame()
-with st.expander('Manual Adjustments'):
+with tabManual:
     # st.write(candidatesDf)
     for index, candidate in candidatesDf.iterrows():
         name = candidate['First'] + ' ' + candidate['Last']
@@ -210,77 +228,77 @@ with st.expander('Manual Adjustments'):
 
 # %% Voting Calculation
 
-st.header('Voting Guide')
+with tabVote:
+    st.header('Voting Guide')
 
-endorsementsScores = candidatesDf[endorseDf.index.values] * endorseWeight
-pledgesScores = candidatesDf[pledgeDf.index.values] * pledgeWeight
-questionsScores = candidatesDf[questionDf.index.values] * questionWeight
+    endorsementsScores = candidatesDf[endorseDf.index.values] * endorseWeight
+    pledgesScores = candidatesDf[pledgeDf.index.values] * pledgeWeight
+    questionsScores = candidatesDf[questionDf.index.values] * questionWeight
 
-# Topic Scores
-scoreDf = pd.DataFrame(candidatesDf.iloc[:, :2])
-for topic in topics:
-    scoreEndorse = endorsementsScores[endorseDf[endorseDf[topic] == True].index.values].sum(
-        axis=1)
-    scorePledge = pledgesScores[pledgeDf[pledgeDf[topic] == True].index.values].sum(
-        axis=1)
-    scoreAnswers = questionsScores[questionDf[questionDf[topic] == True].index.values].sum(
-        axis=1)
+    # Topic Scores
+    scoreDf = pd.DataFrame(candidatesDf.iloc[:, :2])
+    for topic in topics:
+        scoreEndorse = endorsementsScores[endorseDf[endorseDf[topic] == True].index.values].sum(axis=1)
+        scorePledge = pledgesScores[pledgeDf[pledgeDf[topic] == True].index.values].sum(axis=1)
+        scoreAnswers = questionsScores[questionDf[questionDf[topic] == True].index.values].sum(axis=1)
 
-    topicScore = endorsementsWeight * normalize(scoreEndorse) + \
-        pledgesWeight * normalize(scorePledge) + \
-        questionsWeight * normalize(scoreAnswers)
+        topicScore = endorsementsWeight * normalize(scoreEndorse) + \
+            pledgesWeight * normalize(scorePledge) + \
+            questionsWeight * normalize(scoreAnswers)
 
-    topicScore = normalize(topicScore) * topicWeight.loc[topic, 'Weight']
-    scoreDf[topic] = topicScore
+        topicScore = normalize(topicScore) * topicWeight.loc[topic, 'Weight']
+        scoreDf[topic] = topicScore
 
 
-# Combined Scores
-scoreDf = scoreDf.merge(manualAdjustment, how='inner',
-                        left_on='Last', right_index=True)
-scoreDf['Combined Score'] = scoreDf.sum(axis=1)
+    # Combined Scores
+    scoreDf = scoreDf.merge(manualAdjustment, how='inner',
+                            left_on='Last', right_index=True)
 
-scoreDf['Incumbent'] = candidatesDf['Incumbent'].fillna(0).astype(bool)
+    # print(scoreDf)
+    # print(scoreDf.sum(axis=1))
+    scoreDf['Combined Score'] = scoreDf.loc[:,topics].sum(axis=1)
 
-# Sort by points
-scoreDf.sort_values(by=['Combined Score'], ascending=False, inplace=True)
-scoreDf.reset_index(drop=True, inplace=True)
+    scoreDf['Incumbent'] = candidatesDf['Incumbent'].fillna(0).astype(bool)
 
-# Voting Guide
-displayCol, biasCol = st.columns([1, 1])
-displayCount = displayCol.slider('Display Candidates', min_value=5,
-                                 max_value=15, step=1, value=11)
-incumbentBias = biasCol.slider('Incumbency Adjustment', value=0.8, step=0.05,
-                               help='Multiply the Combined Score of Incumbents to prioritize non-incumbents for strategic voting. 1.0 is equivalent to ignoring incumbency.')
+    # Sort by points
+    scoreDf.sort_values(by=['Combined Score'], ascending=False, inplace=True)
+    scoreDf.reset_index(drop=True, inplace=True)
 
-scoreDf = scoreDf.iloc[:displayCount, :]
+    # Voting Guide
+    displayCol, biasCol = st.columns([1, 1])
+    displayCount = displayCol.slider('Display Candidates', min_value=5,
+                                    max_value=12, step=1, value=9)
+    incumbentBias = biasCol.slider('Incumbency Adjustment', value=0.8, step=0.05,
+                                help='Multiply the Combined Score of Incumbents to prioritize non-incumbents for strategic voting. 1.0 is equivalent to ignoring incumbency.')
+
+    scoreDf = scoreDf.iloc[:displayCount, :]
 
 
-# Adjusted Scoring
+    # Adjusted Scoring
 
-adjScore = scoreDf['Combined Score'][scoreDf['Incumbent']
-                                     == True] * incumbentBias
+    adjScore = scoreDf['Combined Score'][scoreDf['Incumbent']] * incumbentBias
 
-scoreDf.insert(2, 'Adjusted Score',  scoreDf['Combined Score'])
-scoreDf.loc[adjScore.index, 'Adjusted Score'] = adjScore
+    scoreDf.insert(2, 'Adjusted Score',  scoreDf['Combined Score'])
+    scoreDf.loc[adjScore.index, 'Adjusted Score'] = adjScore
 
-scoreDf.sort_values(by=['Adjusted Score'], ascending=False, inplace=True)
-scoreDf.reset_index(drop=True, inplace=True)
-scoreDf.index += 1
+    scoreDf.sort_values(by=['Adjusted Score'], ascending=False, inplace=True)
+    scoreDf.reset_index(drop=True, inplace=True)
+    scoreDf.index += 1
 
-cols = list(scoreDf)
+    cols = list(scoreDf)
 
-colsFront = ['First', 'Last', 'Incumbent', 'Adjusted Score', 'Combined Score']
-for col in reversed(colsFront):
-    cols.insert(0, cols.pop(cols.index(col)))
-scoreDf = scoreDf.loc[:, cols]
+    colsFront = ['First', 'Last', 'Incumbent', 'Adjusted Score', 'Combined Score']
+    for col in reversed(colsFront):
+        cols.insert(0, cols.pop(cols.index(col)))
+    scoreDf = scoreDf.loc[:, cols]
 
-st.dataframe(scoreDf)
+    st.dataframe(scoreDf, hide_index=True)
 
-'''
-Voting guide shows highest scoring candidates, with some bias for 
-non-incumbents. See intro notes for detailed explaination. You should play with 
-the sliders because some of this data is pretty sparse (e.g. non-response of 
-questionaires, not all candidates wanting to get all endorsements they could get).
-The data used also misses a bunch of nuance in the candidates (e.g. Mallon's 
-focus on school meals), which is where the manual adjustments can compensate.
-'''
+    '''
+    Voting guide shows highest scoring candidates, with some bias for 
+    non-incumbents. See intro notes for detailed explaination. You should play with 
+    the sliders because some of this data is pretty sparse (e.g. non-response of 
+    questionaires, not all candidates wanting to get all endorsements they could get).
+    The data used also misses a bunch of nuance in the candidates (e.g. Mallon's 
+    focus on school meals), which is where the manual adjustments can compensate.
+    '''
