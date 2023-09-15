@@ -53,17 +53,26 @@ st.set_page_config(page_title='2023 Cambridge Voting Guide',
 
 st.title('2023 Cambridge Council Election Voting Guide')
 
+# tabNames = ['Voting Guide',
+#             'How this works',
+#             'Endorsement Weights',
+#             'Endorsements',
+#             'Pledge Weights',
+#             'Candidate Pledges',
+#             'Question Weights',
+#             'Candidate Answers',
+#             'Fine Tune'
+#             'Manual Adjustments'
+#             ]
+# tabVote, tabIntro, tabEndorsWeight, tabEndorse, tabPledgeWeight, tabPledge, tabQuestionWeight, tabAnswers, tabManual, tabTune = st.tabs(tabNames)
 tabNames = ['Voting Guide',
             'How this works',
-            'Endorsement Weights',
             'Endorsements',
-            'Pledge Weights',
             'Candidate Pledges',
-            'Question Weights',
             'Candidate Answers',
-            'Manual Adjustments'
+            'Fine Tune'
             ]
-tabVote, tabIntro, tabEndorsWeight, tabEndorse, tabPledgeWeight, tabPledge, tabQuestionWeight, tabAnswers, tabManual = st.tabs(tabNames)
+tabVote, tabIntro, tabEndorse, tabPledge, tabAnswers, tabTune = st.tabs(tabNames)
 
 # %% Preferences
 st.sidebar.title('Preferences')
@@ -138,72 +147,124 @@ with tabIntro:
     st.markdown('![Subsequent Election Finishing Order](' + githubURL +
                 'Finishing%20Place%20in%20Subsequent%20Cycle.png)')
 
-
-# %% Endorsements
-
+# %% Manual Fine Tune Adjustments
 endorsers = list(endorseDf.index.values)
 endorseWeight = list()
 
-with tabEndorsWeight:
+pledgeList = list(pledgeDf.index.values)
+pledgeWeight = list()
 
-    for endorser in endorsers:
-        defaultWeight = int(endorseDf.at[endorser, 'Weight'])
-        limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-        if limits == [0, 0]:
-            limits = [-3, 3]
-        max_value = int(max(limits))
-        min_value = int(min(limits))
-        endorseWeight.append(st.slider(
-            endorser, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
-        widgetCount += 1
+questionList = list(questionDf.index.values)
+questionWeight = list()
+
+manualAdjustment = pd.DataFrame()
+
+with tabTune:
+    '''
+    You can adjust indiviual endorsement, pledge, and question weights bleow.
+    '''
+    with st.expander('Endorsements'):
+        for endorser in endorsers:
+            defaultWeight = int(endorseDf.at[endorser, 'Weight'])
+            limits = [i * np.sign(defaultWeight) for i in [0, 5]]
+            if limits == [0, 0]:
+                limits = [-3, 3]
+            max_value = int(max(limits))
+            min_value = int(min(limits))
+            endorseWeight.append(st.slider(
+                endorser, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+            widgetCount += 1
+
+    with st.expander('Pledges'):
+        for pledge in pledgeList:
+            defaultWeight = int(pledgeDf.at[pledge, 'Weight'])
+            limits = [i * np.sign(defaultWeight) for i in [0, 5]]
+            if limits == [0, 0]:
+                limits = [-3, 3]
+            max_value = int(max(limits))
+            min_value = int(min(limits))
+            pledgeWeight.append(st.slider(
+                pledge, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+            widgetCount += 1
+
+    with st.expander('Questions'):
+        for question in questionList:
+            defaultWeight = int(questionDf.at[question, 'Weight'])
+            limits = [i * np.sign(defaultWeight) for i in [0, 5]]
+            if limits == [0, 0]:
+                limits = [-3, 3]
+            max_value = int(max(limits))
+            min_value = int(min(limits))
+            questionWeight.append(st.slider(
+                question, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+            widgetCount += 1
+
+    with st.expander('Personal Preferences'):
+        for index, candidate in candidatesDf.iterrows():
+            name = candidate['First'] + ' ' + candidate['Last']
+            candidateAdjustment = st.slider(
+                name, min_value=-5.0, max_value=5.0, value=0.0, step=0.1)
+            manualAdjustment.loc[candidate['Last'],
+                                'Manual Adjustment'] = candidateAdjustment
+
+# %% Endorsements
+
+# with tabEndorsWeight:
+
+#     for endorser in endorsers:
+#         defaultWeight = int(endorseDf.at[endorser, 'Weight'])
+#         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
+#         if limits == [0, 0]:
+#             limits = [-3, 3]
+#         max_value = int(max(limits))
+#         min_value = int(min(limits))
+#         endorseWeight.append(st.slider(
+#             endorser, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+#         widgetCount += 1
 
 with tabEndorse:
     cols = ['First', 'Last'] + endorsers
 
     endorsements = candidatesDf[cols]
-    st.dataframe(endorsements, hide_index=True)
+    st.dataframe(endorsements, hide_index=True, height=880)
 
 # %% Pledges
 
-pledgeList = list(pledgeDf.index.values)
-pledgeWeight = list()
+# with tabPledgeWeight:
 
-with tabPledgeWeight:
-
-    for pledge in pledgeList:
-        defaultWeight = int(pledgeDf.at[pledge, 'Weight'])
-        limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-        if limits == [0, 0]:
-            limits = [-3, 3]
-        max_value = int(max(limits))
-        min_value = int(min(limits))
-        pledgeWeight.append(st.slider(
-            pledge, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
-        widgetCount += 1
+#     for pledge in pledgeList:
+#         defaultWeight = int(pledgeDf.at[pledge, 'Weight'])
+#         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
+#         if limits == [0, 0]:
+#             limits = [-3, 3]
+#         max_value = int(max(limits))
+#         min_value = int(min(limits))
+#         pledgeWeight.append(st.slider(
+#             pledge, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+#         widgetCount += 1
 
 with tabPledge:
     cols = ['First', 'Last'] + pledgeList
 
     pledges = candidatesDf[cols]
-    st.dataframe(pledges, hide_index=True)
+    st.dataframe(pledges, hide_index=True, height=880)
 
 # %% Questions
 
-questionList = list(questionDf.index.values)
-questionWeight = list()
 
-with tabQuestionWeight:
 
-    for question in questionList:
-        defaultWeight = int(questionDf.at[question, 'Weight'])
-        limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-        if limits == [0, 0]:
-            limits = [-3, 3]
-        max_value = int(max(limits))
-        min_value = int(min(limits))
-        questionWeight.append(st.slider(
-            question, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
-        widgetCount += 1
+# with tabQuestionWeight:
+
+#     for question in questionList:
+#         defaultWeight = int(questionDf.at[question, 'Weight'])
+#         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
+#         if limits == [0, 0]:
+#             limits = [-3, 3]
+#         max_value = int(max(limits))
+#         min_value = int(min(limits))
+#         questionWeight.append(st.slider(
+#             question, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+#         widgetCount += 1
 
 with tabAnswers:
     cols = ['First', 'Last'] + questionList
@@ -213,18 +274,18 @@ with tabAnswers:
     # answers.loc[:, 2:] = answers.iloc[:, 2:].fillna(0).astype(int)
     answers = answers.fillna(0)
 
-    st.dataframe(answers, hide_index=True)
+    st.dataframe(answers, hide_index=True, height=880)
 
 # %% Manual Adjustments
-manualAdjustment = pd.DataFrame()
-with tabManual:
-    # st.write(candidatesDf)
-    for index, candidate in candidatesDf.iterrows():
-        name = candidate['First'] + ' ' + candidate['Last']
-        candidateAdjustment = st.slider(
-            name, min_value=-5.0, max_value=5.0, value=0.0, step=0.1)
-        manualAdjustment.loc[candidate['Last'],
-                             'Manual Adjustment'] = candidateAdjustment
+
+# with tabManual:
+#     # st.write(candidatesDf)
+#     for index, candidate in candidatesDf.iterrows():
+#         name = candidate['First'] + ' ' + candidate['Last']
+#         candidateAdjustment = st.slider(
+#             name, min_value=-5.0, max_value=5.0, value=0.0, step=0.1)
+#         manualAdjustment.loc[candidate['Last'],
+#                              'Manual Adjustment'] = candidateAdjustment
 
 # %% Voting Calculation
 
