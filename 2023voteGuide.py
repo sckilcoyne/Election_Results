@@ -18,6 +18,7 @@ def download_sheet_data():
     guideData = pd.read_excel(googleSheet, sheet_name='Guide Data')
 
     guideData.to_pickle('appDataFrames2023/guideData.pkl', protocol=3)
+    print('Downloaded Google Sheet data')
 
 
 def import_saved_data():
