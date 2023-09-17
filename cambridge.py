@@ -7,6 +7,8 @@ Created on Thu Jun 10 21:31:20 2021
 # %% Set up
 import pandas as pd
 import numpy as np
+import numpy.polynomial.polynomial as poly
+import scipy.stats as stats
 import os
 import glob
 import matplotlib.pyplot as plt
@@ -28,6 +30,7 @@ def combine_results(folder):
         roundResults = pd.read_csv(folder + file, sep='	')
         roundResults['Round'] = file[5:-4]
         df = df.append(roundResults)
+        # df = pd.concat(df, roundResults)
 
     df['Round'] = df['Round'].astype(int)
     df.sort_values('Round', ignore_index=True, inplace=True)
@@ -126,6 +129,8 @@ def round_gains(df):
 
         gains = gains.append(pd.DataFrame(
             percentsArray, columns=gains.columns), ignore_index=True)
+        # gains = pd.concat(gains, pd.DataFrame(
+        #     percentsArray, columns=gains.columns), ignore_index=True)
 
     return gains
 
@@ -153,7 +158,8 @@ for folder in folders:
     df, elected = combine_results(folder)
 
     plot_single_election(df, elected, incumbent, folder)
-    gains = gains.append(round_gains(df))
+    # gains = gains.append(round_gains(df))
+    gains = pd.concat((gains, round_gains(df)))
 
     candidates = list(df['CANDIDATE '].loc[~(df['CANDIDATE '].str.match(
         r'Write*')) & ~(df['CANDIDATE '].str.match(
@@ -246,9 +252,15 @@ for year in range(placeDf.shape[1]):
         adjacentYear = placeDf.iloc[:, year:year+2]
         adjacentYear.columns = [x, y]
         yearCompare = yearCompare.append(adjacentYear, ignore_index=True)
+        # yearCompare = pd.concat(yearCompare, adjacentYear, ignore_index=True)
 
 yearCompare.dropna(inplace=True)
 maxPlace = yearCompare.max().max()
+
+# Filter to contenders
+contenderMax = 15
+yearContender = yearCompare[(yearCompare['Year 0'] < contenderMax) & (
+    yearCompare['Year +2'] < contenderMax)]
 
 fig, ax = plt.subplots(1, 1, figsize=(10, 10), sharex=True)
 
@@ -263,17 +275,22 @@ ax.minorticks_on()
 # Plot finishes
 ax.scatter(yearCompare[x], yearCompare[y])
 
-# Add linear fit
-linFit = np.poly1d(np.polyfit(yearCompare[x], yearCompare[y], 1))
-xs = np.arange(1, maxPlace + 1)
-ax.plot(xs, linFit(xs))
+# Add linear fit (of only contenders)
+xs = np.arange(1, contenderMax + 1)
+coefs = poly.polyfit(yearContender[x], yearContender[y], 1)
+ffit = poly.polyval(xs, coefs)
+ax.plot(xs, ffit)
+slope, intercept, r_value, p_value, std_err = stats.linregress(
+    yearContender[x], yearContender[y])
+print(f'{slope=:0.2f}\n{intercept=:0.2f}\n{r_value**2=:0.3f}\n')
+
 
 title = 'Finishing Place in Subsequent Cycle'
 ax.set_title(title)
 ax.set_xlabel('Elected Order')
 ax.set_ylabel('Elected Order in Subsequent Election')
-ax.set_xlim(0, maxPlace + 1)
-ax.set_ylim(0, maxPlace + 1)
+ax.set_xlim(0.5, maxPlace + 0.5)
+ax.set_ylim(0.5, maxPlace + 0.5)
 ax.set_aspect('equal', adjustable='box')
 
 fig.savefig(outputFolder + title + '.png')
