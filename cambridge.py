@@ -39,6 +39,7 @@ def combine_results(folder):
 
     elected = list(df['CANDIDATE '].loc[df['STATUS'].str.match(
         r' ELECTED*')].drop_duplicates())
+
     return df, elected
 
 
