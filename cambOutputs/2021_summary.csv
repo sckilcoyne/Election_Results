@@ -1,20 +1,20 @@
-,InitialVotes,finalResults,Elected,InitialPercentage
-"Siddiqui, Sumbul ",4124.0, ELECTED -- 1st count,True,1.8900091659028415
-"Nolan, Patricia M. ",1971.0, ELECTED -- 8th count,True,0.9032997250229148
-"Simmons, E. Denise ",1764.0, ELECTED -- 7th count,True,0.8084326306141155
-"Toner, Paul F. ",1703.0, ELECTED -- 13th count,True,0.7804766269477543
-"McGovern, Marc C. ",1539.0, ELECTED -- 12th count,True,0.7053162236480294
-"Carlone, Dennis J. ",1493.0, ELECTED -- 12th count,True,0.6842346471127406
-"Azeem, Burhan ",1379.0, ELECTED -- 13th count,True,0.6319890009165903
-"Zondervan, Quinton Y. ",1295.0, ELECTED -- 13th count,True,0.5934922089825848
-"Sobrinho-Wheeler, Jivan ",1225.0, DEFEATED -- 12th count,False,0.5614115490375802
-"Mallon, Alanna M. ",1220.0, ELECTED -- 13th count,True,0.5591200733272227
-"Williams, Nicola A. ",1159.0, DEFEATED -- 11th count,False,0.5311640696608616
-"Skeadas, Theodora Theo ",813.0, DEFEATED -- 10th count,False,0.37259395050412464
-"McGuirk, Joe ",611.0, DEFEATED -- 9th count,False,0.28001833180568286
-"Bullister, Dana ",520.0, DEFEATED -- 8th count,False,0.2383134738771769
-"Hicks, Tonia D. ",363.0, DEFEATED -- 7th count,False,0.16636113657195234
-"Pierre, Frantz ",355.0, DEFEATED -- 6th count,False,0.16269477543538038
-"Levy, Ilan ",97.0, DEFEATED -- 5th count,False,0.044454628780934924
-"Moree, Gregg J. ",80.0, DEFEATED -- 4th count,False,0.03666361136571952
-"Eckstut, Robert ",70.0, DEFEATED -- 3rd count,False,0.032080659945004586
+,InitialVotes,finalResults,Elected,InitialPercentage,ElectedRound,DefeatedRound,Place
+"Siddiqui, Sumbul ",4124.0, ELECTED -- 1st count,True,1.8900091659028415,1.0,,1.0
+"Nolan, Patricia M. ",1971.0, ELECTED -- 8th count,True,0.9032997250229148,8.0,,3.0
+"Simmons, E. Denise ",1764.0, ELECTED -- 7th count,True,0.8084326306141155,7.0,,2.0
+"Toner, Paul F. ",1703.0, ELECTED -- 13th count,True,0.7804766269477543,13.0,,7.5
+"McGovern, Marc C. ",1539.0, ELECTED -- 12th count,True,0.7053162236480294,12.0,,4.5
+"Carlone, Dennis J. ",1493.0, ELECTED -- 12th count,True,0.6842346471127406,12.0,,4.5
+"Azeem, Burhan ",1379.0, ELECTED -- 13th count,True,0.6319890009165903,13.0,,7.5
+"Zondervan, Quinton Y. ",1295.0, ELECTED -- 13th count,True,0.5934922089825848,13.0,,7.5
+"Sobrinho-Wheeler, Jivan ",1225.0, DEFEATED -- 12th count,False,0.5614115490375802,,12.0,10.0
+"Mallon, Alanna M. ",1220.0, ELECTED -- 13th count,True,0.5591200733272227,13.0,,7.5
+"Williams, Nicola A. ",1159.0, DEFEATED -- 11th count,False,0.5311640696608616,,11.0,11.0
+"Skeadas, Theodora Theo ",813.0, DEFEATED -- 10th count,False,0.37259395050412464,,10.0,12.0
+"McGuirk, Joe ",611.0, DEFEATED -- 9th count,False,0.28001833180568286,,9.0,13.0
+"Bullister, Dana ",520.0, DEFEATED -- 8th count,False,0.2383134738771769,,8.0,14.0
+"Hicks, Tonia D. ",363.0, DEFEATED -- 7th count,False,0.16636113657195234,,7.0,15.0
+"Pierre, Frantz ",355.0, DEFEATED -- 6th count,False,0.16269477543538038,,6.0,16.0
+"Levy, Ilan ",97.0, DEFEATED -- 5th count,False,0.044454628780934924,,5.0,17.0
+"Moree, Gregg J. ",80.0, DEFEATED -- 4th count,False,0.03666361136571952,,4.0,18.0
+"Eckstut, Robert ",70.0, DEFEATED -- 3rd count,False,0.032080659945004586,,3.0,19.0

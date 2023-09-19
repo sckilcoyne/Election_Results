@@ -10,8 +10,13 @@ import glob
 import pandas as pd
 import numpy as np
 
+# Candidates with different names in different years {old: new}
+cleanNames = {'Musgrave, Adriane B. ': 'Musgrave, Adriane ',
+              'Levy, Ilan S. ': 'Levy, Ilan ',
+              }
 
 # %% Merge results from single election
+
 
 def election(year):
     print(f'\n{year=}')
@@ -22,7 +27,9 @@ def election(year):
     for file in os.listdir(folder):
         roundResults = pd.read_csv(folder + file, sep='	', index_col=0, skiprows=1,
                                    names=['NewVotes', 'TotalVotes', 'Status'])
-        # roundResults['Round'] = file[5:-4]
+
+        roundResults.rename(index=cleanNames, inplace=True)
+
         roundResults.columns = pd.MultiIndex.from_product([[int(file[5:-4])], roundResults])
 
         df = pd.concat([df, roundResults], axis=1)
@@ -45,7 +52,36 @@ def election(year):
 
     dfSummary['InitialPercentage'] = dfSummary['InitialVotes'] / voteThreashold
 
-    print(dfSummary)
+    dfSummary['ElectedRound'] = dfSummary[dfSummary['finalResults'].str.contains(
+        'ELECTED')]['finalResults'].str[12:-8]
+    dfSummary['DefeatedRound'] = dfSummary[dfSummary['finalResults'].str.contains(
+        'DEFEATED')]['finalResults'].str[12:-8]
+
+    dfSummary['ElectedRound'] = pd.to_numeric(dfSummary['ElectedRound'])
+    dfSummary['DefeatedRound'] = pd.to_numeric(dfSummary['DefeatedRound'])
+
+    electedCount = 0
+    for r, rows in dfSummary.groupby('ElectedRound'):
+        count = rows.shape[0]
+
+        if count == 1:
+            dfSummary.loc[rows.index, 'Place'] = electedCount + count
+        else:
+            dfSummary.loc[rows.index, 'Place'] = ((electedCount * 2) + 1 + count) / 2
+
+        electedCount = electedCount + count
+
+    for r, rows in dfSummary.groupby('DefeatedRound', sort=False):
+        count = rows.shape[0]
+
+        if count == 1:
+            dfSummary.loc[rows.index, 'Place'] = electedCount + count
+        else:
+            dfSummary.loc[rows.index, 'Place'] = ((electedCount * 2) + 1 + count) / 2
+
+        electedCount = electedCount + count
+
+    # print(dfSummary)
     dfSummary.to_csv(f'cambOutputs/{year}_summary.csv')
 
     return df, dfSummary

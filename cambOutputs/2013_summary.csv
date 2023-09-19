@@ -1,26 +1,26 @@
-,InitialVotes,finalResults,Elected,InitialPercentage
-"Cheung, Leland ",2391, ELECTED -- 1st count,True,1.3470422535211268
-"Maher, David P. ",1464, ELECTED -- 15th count,True,0.8247887323943662
-"Toomey, Jr., Timothy J. ",1457, ELECTED -- 16th count,True,0.8208450704225352
-"Benzan, Dennis A. ",1301, ELECTED -- 16th count,True,0.7329577464788732
-"McGovern, Marc C. ",1187, ELECTED -- 17th count,True,0.6687323943661971
-"Simmons, E. Denise ",1184, ELECTED -- 16th count,True,0.6670422535211268
-"Carlone, Dennis J. ",1151, ELECTED -- 17th count,True,0.6484507042253521
-"Kelley, Craig A. ",1093, ELECTED -- 17th count,True,0.615774647887324
-"Mazen, Nadeem A. ",985, ELECTED -- 17th count,True,0.5549295774647888
-"Reeves, Kenneth E. ",934, DEFEATED -- 15th count,False,0.5261971830985915
-"vanBeuzekom, Minka Y. ",875, DEFEATED -- 16th count,False,0.49295774647887325
-"Seidel, Sam ",701, DEFEATED -- 14th count,False,0.39492957746478874
-"Smith, Jefferson R. ",579, DEFEATED -- 13th count,False,0.3261971830985915
-"Leslie, Logan Edward ",504, DEFEATED -- 12th count,False,0.28394366197183096
-"Von Hoffmann, Kristen . ",420, DEFEATED -- 11th count,False,0.23661971830985915
-"House, Janneke Ann ",410, DEFEATED -- 10th count,False,0.23098591549295774
-"Mirza, Mushtaque A. ",284, DEFEATED -- 9th count,False,0.16
-"Vasquez, Luis ",264, DEFEATED -- 8th count,False,0.14873239436619717
-"Mello, Gary W. ",107, DEFEATED -- 7th count,False,0.06028169014084507
-"Yarden, Elie ",102, DEFEATED -- 6th count,False,0.05746478873239436
-"Lee, James ",91, DEFEATED -- 5th count,False,0.05126760563380282
-"Phillips, Lesley Rebec. ",82, DEFEATED -- 4th count,False,0.04619718309859155
-"Williamson, James M. ",74, DEFEATED -- 3rd count,False,0.041690140845070424
-"Peden, Ronald ",49, DEFEATED -- 2nd count,False,0.0276056338028169
-"Moree, Gregg J. ",38, DEFEATED -- 2nd count,False,0.02140845070422535
+,InitialVotes,finalResults,Elected,InitialPercentage,ElectedRound,DefeatedRound,Place
+"Cheung, Leland ",2391, ELECTED -- 1st count,True,1.3470422535211268,1.0,,1.0
+"Maher, David P. ",1464, ELECTED -- 15th count,True,0.8247887323943662,15.0,,2.0
+"Toomey, Jr., Timothy J. ",1457, ELECTED -- 16th count,True,0.8208450704225352,16.0,,4.0
+"Benzan, Dennis A. ",1301, ELECTED -- 16th count,True,0.7329577464788732,16.0,,4.0
+"McGovern, Marc C. ",1187, ELECTED -- 17th count,True,0.6687323943661971,17.0,,7.5
+"Simmons, E. Denise ",1184, ELECTED -- 16th count,True,0.6670422535211268,16.0,,4.0
+"Carlone, Dennis J. ",1151, ELECTED -- 17th count,True,0.6484507042253521,17.0,,7.5
+"Kelley, Craig A. ",1093, ELECTED -- 17th count,True,0.615774647887324,17.0,,7.5
+"Mazen, Nadeem A. ",985, ELECTED -- 17th count,True,0.5549295774647888,17.0,,7.5
+"Reeves, Kenneth E. ",934, DEFEATED -- 15th count,False,0.5261971830985915,,15.0,10.0
+"vanBeuzekom, Minka Y. ",875, DEFEATED -- 16th count,False,0.49295774647887325,,16.0,11.0
+"Seidel, Sam ",701, DEFEATED -- 14th count,False,0.39492957746478874,,14.0,12.0
+"Smith, Jefferson R. ",579, DEFEATED -- 13th count,False,0.3261971830985915,,13.0,13.0
+"Leslie, Logan Edward ",504, DEFEATED -- 12th count,False,0.28394366197183096,,12.0,14.0
+"Von Hoffmann, Kristen . ",420, DEFEATED -- 11th count,False,0.23661971830985915,,11.0,15.0
+"House, Janneke Ann ",410, DEFEATED -- 10th count,False,0.23098591549295774,,10.0,16.0
+"Mirza, Mushtaque A. ",284, DEFEATED -- 9th count,False,0.16,,9.0,17.0
+"Vasquez, Luis ",264, DEFEATED -- 8th count,False,0.14873239436619717,,8.0,18.0
+"Mello, Gary W. ",107, DEFEATED -- 7th count,False,0.06028169014084507,,7.0,19.0
+"Yarden, Elie ",102, DEFEATED -- 6th count,False,0.05746478873239436,,6.0,20.0
+"Lee, James ",91, DEFEATED -- 5th count,False,0.05126760563380282,,5.0,21.0
+"Phillips, Lesley Rebec. ",82, DEFEATED -- 4th count,False,0.04619718309859155,,4.0,22.0
+"Williamson, James M. ",74, DEFEATED -- 3rd count,False,0.041690140845070424,,3.0,23.0
+"Peden, Ronald ",49, DEFEATED -- 2nd count,False,0.0276056338028169,,2.0,24.5
+"Moree, Gregg J. ",38, DEFEATED -- 2nd count,False,0.02140845070422535,,2.0,24.5

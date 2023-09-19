@@ -1,27 +1,27 @@
-,InitialVotes,finalResults,Elected,InitialPercentage
-"Simmons, E. Denise ",2616, ELECTED -- 1st count,True,1.1611185086551266
-"Siddiqui, Sumbul ",2532, ELECTED -- 1st count,True,1.1238348868175765
-"McGovern, Marc C. ",1880, ELECTED -- 15th count,True,0.8344429649356414
-"Devereux, Jan ",1699, ELECTED -- 17th count,True,0.7541056369285397
-"Toomey, Jr., Timothy J. ",1619, ELECTED -- 18th count,True,0.7185974256546827
-"Zondervan, Quinton Y. ",1565, ELECTED -- 17th count,True,0.6946293830448291
-"Mallon, Alanna M. ",1329, ELECTED -- 17th count,True,0.5898801597869507
-"Carlone, Dennis J. ",1176, ELECTED -- 19th count,True,0.521970705725699
-"Kelley, Craig A. ",1092, ELECTED -- 19th count,True,0.48468708388814913
-"Toner, Paul F. ",980, DEFEATED -- 18th count,False,0.43497558810474923
-"Harding, Jr., Richard ",836, DEFEATED -- 17th count,False,0.3710608078118065
-"Gebru, Samuel ",787, DEFEATED -- 14th count,False,0.349312028406569
-"Tierney, Sean ",779, DEFEATED -- 15th count,False,0.3457612072791833
-"Sivongxay, Vatsady ",740, DEFEATED -- 16th count,False,0.328450954283178
-"Musgrave, Adriane B. ",580, DEFEATED -- 12th count,False,0.2574345317354638
-"Okamoto, Nadya T. ",550, DEFEATED -- 13th count,False,0.2441189525077674
-"Burgin, Josh M. ",392, DEFEATED -- 11th count,False,0.1739902352418997
-"Volmar, Gwen Thomas ",248, DEFEATED -- 10th count,False,0.11007545494895694
-"Levy, Ilan ",246, DEFEATED -- 9th count,False,0.10918774966711052
-"Benjamin, Ronald ",242, DEFEATED -- 8th count,False,0.10741233910341766
-"D'Ambrosio, Olivia ",216, DEFEATED -- 7th count,False,0.09587217043941411
-"Santos, Jeff ",147, DEFEATED -- 6th count,False,0.06524633821571238
-"Pillai, Hari I. ",107, DEFEATED -- 5th count,False,0.04749223257878384
-"Lenke, Dan ",54, DEFEATED -- 4th count,False,0.023968042609853527
-"Moree, Gregg J. ",46, DEFEATED -- 3rd count,False,0.020417221482467822
-"Sutton, Bryan ",45, DEFEATED -- 3rd count,False,0.019973368841544607
+,InitialVotes,finalResults,Elected,InitialPercentage,ElectedRound,DefeatedRound,Place
+"Simmons, E. Denise ",2616, ELECTED -- 1st count,True,1.1611185086551266,1.0,,1.5
+"Siddiqui, Sumbul ",2532, ELECTED -- 1st count,True,1.1238348868175765,1.0,,1.5
+"McGovern, Marc C. ",1880, ELECTED -- 15th count,True,0.8344429649356414,15.0,,3.0
+"Devereux, Jan ",1699, ELECTED -- 17th count,True,0.7541056369285397,17.0,,5.0
+"Toomey, Jr., Timothy J. ",1619, ELECTED -- 18th count,True,0.7185974256546827,18.0,,7.0
+"Zondervan, Quinton Y. ",1565, ELECTED -- 17th count,True,0.6946293830448291,17.0,,5.0
+"Mallon, Alanna M. ",1329, ELECTED -- 17th count,True,0.5898801597869507,17.0,,5.0
+"Carlone, Dennis J. ",1176, ELECTED -- 19th count,True,0.521970705725699,19.0,,8.5
+"Kelley, Craig A. ",1092, ELECTED -- 19th count,True,0.48468708388814913,19.0,,8.5
+"Toner, Paul F. ",980, DEFEATED -- 18th count,False,0.43497558810474923,,18.0,10.0
+"Harding, Jr., Richard ",836, DEFEATED -- 17th count,False,0.3710608078118065,,17.0,11.0
+"Gebru, Samuel ",787, DEFEATED -- 14th count,False,0.349312028406569,,14.0,12.0
+"Tierney, Sean ",779, DEFEATED -- 15th count,False,0.3457612072791833,,15.0,13.0
+"Sivongxay, Vatsady ",740, DEFEATED -- 16th count,False,0.328450954283178,,16.0,14.0
+"Musgrave, Adriane ",580, DEFEATED -- 12th count,False,0.2574345317354638,,12.0,15.0
+"Okamoto, Nadya T. ",550, DEFEATED -- 13th count,False,0.2441189525077674,,13.0,16.0
+"Burgin, Josh M. ",392, DEFEATED -- 11th count,False,0.1739902352418997,,11.0,17.0
+"Volmar, Gwen Thomas ",248, DEFEATED -- 10th count,False,0.11007545494895694,,10.0,18.0
+"Levy, Ilan ",246, DEFEATED -- 9th count,False,0.10918774966711052,,9.0,19.0
+"Benjamin, Ronald ",242, DEFEATED -- 8th count,False,0.10741233910341766,,8.0,20.0
+"D'Ambrosio, Olivia ",216, DEFEATED -- 7th count,False,0.09587217043941411,,7.0,21.0
+"Santos, Jeff ",147, DEFEATED -- 6th count,False,0.06524633821571238,,6.0,22.0
+"Pillai, Hari I. ",107, DEFEATED -- 5th count,False,0.04749223257878384,,5.0,23.0
+"Lenke, Dan ",54, DEFEATED -- 4th count,False,0.023968042609853527,,4.0,24.0
+"Moree, Gregg J. ",46, DEFEATED -- 3rd count,False,0.020417221482467822,,3.0,25.5
+"Sutton, Bryan ",45, DEFEATED -- 3rd count,False,0.019973368841544607,,3.0,25.5
