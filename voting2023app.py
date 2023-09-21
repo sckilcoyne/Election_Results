@@ -2,6 +2,9 @@
 """
 Created on Mon Sep 20 22:23:23 2021
 
+https://discuss.streamlit.io/t/oserror-winerror-10013-an-attempt-was-made-to-access-a-socket-in-a-way-forbidden-by-its-access-permissions/1545
+streamlit run voting2023app.py --server.port 5998
+
 @author: Scott
 """
 import streamlit as st
@@ -81,7 +84,8 @@ st.sidebar.write('Set weights of topic preferences.')
 
 topicWeight = pd.DataFrame()
 for topic in topics:
-    weight = topicWeights[topic].astype(int).item()
+    print(f'{topic=}  |  {topicWeights[topic]=}')
+    weight = topicWeights[topic] # .astype(int).item()
     topicWeight.loc[topic, 'Weight'] = st.sidebar.slider(
         topic, min_value=0, max_value=5, value=weight)
 
@@ -146,6 +150,12 @@ with tabIntro:
     githubURL = githubRepo + 'main/' + 'cambOutputs/'
     st.markdown('![Subsequent Election Finishing Order](' + githubURL +
                 'Finishing%20Place%20in%20Subsequent%20Cycle.png)')
+    
+    st.markdown('![First Round Percentage of Threshold in Subsequent Cycle](' + githubURL +
+                'First%20Round%20Percentage%20of%20Threshold%20in%20Subsequent%20Cycle.png)')
+    
+    st.markdown('![Subsequent Election Finishing Order](' + githubURL +
+                'First%20Round%20Percentage%20of%20Threshold%20vs.%20Finish%20in%20Subsequent%20Cycle.png)')
 
 # %% Manual Fine Tune Adjustments
 endorsers = list(endorseDf.index.values)
@@ -329,7 +339,7 @@ with tabVote:
     displayCol, biasCol = st.columns([1, 1])
     displayCount = displayCol.slider('Display Candidates', min_value=5,
                                     max_value=12, step=1, value=9)
-    incumbentBias = biasCol.slider('Incumbency Adjustment', value=0.8, step=0.05,
+    incumbentBias = biasCol.slider('Incumbency Adjustment', value=0.9, step=0.05,
                                 help='Multiply the Combined Score of Incumbents to prioritize non-incumbents for strategic voting. 1.0 is equivalent to ignoring incumbency.')
 
     scoreDf = scoreDf.iloc[:displayCount, :]
@@ -353,7 +363,9 @@ with tabVote:
         cols.insert(0, cols.pop(cols.index(col)))
     scoreDf = scoreDf.loc[:, cols]
 
-    st.dataframe(scoreDf, hide_index=True)
+    numCols = scoreDf.columns[3:]
+
+    st.dataframe(scoreDf.style.format(subset=numCols, formatter="{:.2f}"), hide_index=True)
 
     '''
     Voting guide shows highest scoring candidates, with some bias for 
