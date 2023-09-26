@@ -87,7 +87,7 @@ for topic in topics:
     print(f'{topic=}  |  {topicWeights[topic]=}')
     weight = topicWeights[topic] # .astype(int).item()
     topicWeight.loc[topic, 'Weight'] = st.sidebar.slider(
-        topic, min_value=0, max_value=5, value=weight)
+        topic, min_value=0, max_value=5, value=int(weight))
 
 st.sidebar.write('Set weights of category preferences.')
 
@@ -158,7 +158,8 @@ with tabIntro:
     eligible preference (yay Cambridge having non-deterministic elections!).
     Every round the lowest ranked candidate is eliminated and their votes are
     redistributed. This continues until 9 candidates exceed the threshold or
-    there are only 9 candidates remaining.
+    there are only 9 candidates remaining. 
+    [More Details](https://www.cambridgema.gov/Departments/electioncommission/cambridgemunicipalelections)
 
     ## Voting Strategy
     Reading the above RCV detail section, if you want your vote to count the most, you
