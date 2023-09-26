@@ -12,16 +12,22 @@ import pandas as pd
 
 # %% Functions
 def download_sheet_data():
-    # Publish Google Sheet
+    '''Download google sheet of guide data
+
+    Google sheet must be published to read
+    https://support.google.com/docs/answer/183965?hl=en&co=GENIE.Platform%3DDesktop
+    '''
     googleSheet = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsrWKP18BjL-X23CsQV3h0zpa5UUXgdXBQzT8DodGNARPI0Nz38XzHmDhQFqJnFaQfjtjTRAcnJiBe/pub?output=xlsx'
 
-    guideData = pd.read_excel(googleSheet, sheet_name='Guide Data')
+    googleData = pd.read_excel(googleSheet, sheet_name='Guide Data')
 
-    guideData.to_pickle('appDataFrames2023/guideData.pkl', protocol=3)
+    googleData.to_pickle('appDataFrames2023/guideData.pkl', protocol=3)
     print('Downloaded Google Sheet data')
 
 
 def import_saved_data():
+    '''Import saved downloaded guide data
+    '''
     return pd.read_pickle('appDataFrames2023/guideData.pkl')
 
 
@@ -54,7 +60,7 @@ pledges['Weight'] = pledges['Weight'].astype(int)
 # Create default Topic weights Table
 topicWeights = guideData[guideData['Category'].notna()].drop(
     ['First', 'Last', 'Incumbent'], axis=1).set_index('Category').drop(
-        ['Weight', 'Type'], axis=0)['Topic Weight']
+        ['Weight', 'Type', 'Notes'], axis=0)['Topic Weight']
 
 # %% Save Data to be used in app
 pickleFolder = 'appDataFrames2023/'

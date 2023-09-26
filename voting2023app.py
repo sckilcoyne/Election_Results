@@ -32,7 +32,7 @@ questionDf = pd.read_pickle(githubBase + 'questions' + githubRaw)
 
 topicWeights = pd.read_pickle(githubBase + 'topicWeights' + githubRaw)
 
-topics = endorseDf.columns.values[:-1]
+topics = endorseDf.columns.values[1:-1] # Remove notes [0] and weight rows [-1]
 
 widgetCount = 0
 
@@ -213,37 +213,58 @@ with tabTune:
     with st.expander('Endorsements'):
         for endorser in endorsers:
             defaultWeight = int(endorseDf.at[endorser, 'Weight'])
+            note = endorseDf.at[endorser, 'Notes']
             limits = [i * np.sign(defaultWeight) for i in [0, 5]]
             if limits == [0, 0]:
                 limits = [-3, 3]
             max_value = int(max(limits))
             min_value = int(min(limits))
             endorseWeight.append(st.slider(
-                endorser, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+                endorser,
+                min_value=min_value,
+                max_value=max_value,
+                step=1,
+                value=defaultWeight,
+                key=widgetCount,
+                help=note))
             widgetCount += 1
 
     with st.expander('Pledges'):
         for pledge in pledgeList:
             defaultWeight = int(pledgeDf.at[pledge, 'Weight'])
+            note = pledgeDf.at[pledge, 'Notes']
             limits = [i * np.sign(defaultWeight) for i in [0, 5]]
             if limits == [0, 0]:
                 limits = [-3, 3]
             max_value = int(max(limits))
             min_value = int(min(limits))
             pledgeWeight.append(st.slider(
-                pledge, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+                pledge,
+                min_value=min_value,
+                max_value=max_value,
+                step=1,
+                value=defaultWeight,
+                key=widgetCount,
+                help=note))
             widgetCount += 1
 
     with st.expander('Questions'):
         for question in questionList:
             defaultWeight = int(questionDf.at[question, 'Weight'])
+            note = questionDf.at[question, 'Notes']
             limits = [i * np.sign(defaultWeight) for i in [0, 5]]
             if limits == [0, 0]:
                 limits = [-3, 3]
             max_value = int(max(limits))
             min_value = int(min(limits))
             questionWeight.append(st.slider(
-                question, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
+                question,
+                min_value=min_value,
+                max_value=max_value,
+                step=1,
+                value=defaultWeight,
+                key=widgetCount,
+                help=note))
             widgetCount += 1
 
     with st.expander('Personal Preferences'):
@@ -255,20 +276,6 @@ with tabTune:
                                 'Manual Adjustment'] = candidateAdjustment
 
 # %% Endorsements
-
-# with tabEndorsWeight:
-
-#     for endorser in endorsers:
-#         defaultWeight = int(endorseDf.at[endorser, 'Weight'])
-#         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-#         if limits == [0, 0]:
-#             limits = [-3, 3]
-#         max_value = int(max(limits))
-#         min_value = int(min(limits))
-#         endorseWeight.append(st.slider(
-#             endorser, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
-#         widgetCount += 1
-
 with tabEndorse:
     cols = ['First', 'Last'] + endorsers
 
@@ -276,20 +283,6 @@ with tabEndorse:
     st.dataframe(endorsements, hide_index=True, height=880)
 
 # %% Pledges
-
-# with tabPledgeWeight:
-
-#     for pledge in pledgeList:
-#         defaultWeight = int(pledgeDf.at[pledge, 'Weight'])
-#         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-#         if limits == [0, 0]:
-#             limits = [-3, 3]
-#         max_value = int(max(limits))
-#         min_value = int(min(limits))
-#         pledgeWeight.append(st.slider(
-#             pledge, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
-#         widgetCount += 1
-
 with tabPledge:
     cols = ['First', 'Last'] + pledgeList
 
@@ -297,22 +290,6 @@ with tabPledge:
     st.dataframe(pledges, hide_index=True, height=880)
 
 # %% Questions
-
-
-
-# with tabQuestionWeight:
-
-#     for question in questionList:
-#         defaultWeight = int(questionDf.at[question, 'Weight'])
-#         limits = [i * np.sign(defaultWeight) for i in [0, 5]]
-#         if limits == [0, 0]:
-#             limits = [-3, 3]
-#         max_value = int(max(limits))
-#         min_value = int(min(limits))
-#         questionWeight.append(st.slider(
-#             question, min_value=min_value, max_value=max_value, step=1, value=defaultWeight, key=widgetCount))
-#         widgetCount += 1
-
 with tabAnswers:
     cols = ['First', 'Last'] + questionList
 
@@ -322,17 +299,6 @@ with tabAnswers:
     answers = answers.fillna(0)
 
     st.dataframe(answers, hide_index=True, height=880)
-
-# %% Manual Adjustments
-
-# with tabManual:
-#     # st.write(candidatesDf)
-#     for index, candidate in candidatesDf.iterrows():
-#         name = candidate['First'] + ' ' + candidate['Last']
-#         candidateAdjustment = st.slider(
-#             name, min_value=-5.0, max_value=5.0, value=0.0, step=0.1)
-#         manualAdjustment.loc[candidate['Last'],
-#                              'Manual Adjustment'] = candidateAdjustment
 
 # %% Voting Calculation
 
