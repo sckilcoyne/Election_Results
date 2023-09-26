@@ -196,13 +196,13 @@ with tabIntro:
 
 # %% Manual Fine Tune Adjustments
 endorsers = list(endorseDf.index.values)
-endorseWeight = list()
+endorseWeight = []
 
 pledgeList = list(pledgeDf.index.values)
-pledgeWeight = list()
+pledgeWeight = []
 
 questionList = list(questionDf.index.values)
-questionWeight = list()
+questionWeight = []
 
 manualAdjustment = pd.DataFrame()
 
@@ -212,8 +212,13 @@ with tabTune:
     '''
     with st.expander('Endorsements'):
         for endorser in endorsers:
+            # print(f'{endorser=}')
+            # print(endorseDf.at[endorser, 'Notes'])
             defaultWeight = int(endorseDf.at[endorser, 'Weight'])
             note = endorseDf.at[endorser, 'Notes']
+            if note != note: # Fix empty notes
+                note = ''
+            # print(f'{endorser=} | {note=}')
             limits = [i * np.sign(defaultWeight) for i in [0, 5]]
             if limits == [0, 0]:
                 limits = [-3, 3]
@@ -233,6 +238,9 @@ with tabTune:
         for pledge in pledgeList:
             defaultWeight = int(pledgeDf.at[pledge, 'Weight'])
             note = pledgeDf.at[pledge, 'Notes']
+            if note != note: # Fix empty notes
+                note = ''
+            # print(f'{pledge=} | {note=}')
             limits = [i * np.sign(defaultWeight) for i in [0, 5]]
             if limits == [0, 0]:
                 limits = [-3, 3]
@@ -252,6 +260,9 @@ with tabTune:
         for question in questionList:
             defaultWeight = int(questionDf.at[question, 'Weight'])
             note = questionDf.at[question, 'Notes']
+            if note != note: # Fix empty notes
+                note = ''
+            # print(f'{question=} | {note=}')
             limits = [i * np.sign(defaultWeight) for i in [0, 5]]
             if limits == [0, 0]:
                 limits = [-3, 3]
