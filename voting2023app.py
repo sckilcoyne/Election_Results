@@ -341,7 +341,9 @@ with tabVote:
 
     # print(scoreDf)
     # print(scoreDf.sum(axis=1))
-    scoreDf['Combined Score'] = scoreDf.loc[:,topics].sum(axis=1)
+    scores = np.append(topics, 'Manual Adjustment')
+    # print(f'\n{scores=}')
+    scoreDf['Combined Score'] = scoreDf.loc[:,scores].sum(axis=1)
 
     scoreDf['Incumbent'] = candidatesDf['Incumbent'].fillna(0).astype(bool)
 
