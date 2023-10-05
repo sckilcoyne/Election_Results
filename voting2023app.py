@@ -93,7 +93,7 @@ endorsementsWeight = st.sidebar.slider(
 pledgesWeight = st.sidebar.slider(
     'Pledges', min_value=0, max_value=5, value=3)
 questionsWeight = st.sidebar.slider(
-    'Questions', min_value=0, max_value=5, value=3)
+    'Questions', min_value=0, max_value=5, value=2)
 
 # %% Intro
 githubRepo = 'https://raw.githubusercontent.com/sckilcoyne/Election_Results/'
