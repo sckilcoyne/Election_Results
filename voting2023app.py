@@ -190,7 +190,7 @@ with tabIntro:
 
     st.markdown('![Subsequent Election Finishing Order](' + githubURL +
                 'First%20Round%20Percentage%20of%20Threshold%20vs.%20Finish%20in%20Subsequent%20Cycle.png)')
-    
+
     st.write(ccc)
 
 # %% Manual Fine Tune Adjustments
@@ -286,11 +286,12 @@ with tabTune:
                                 'Manual Adjustment'] = candidateAdjustment
 
 # %% Endorsements
+height = 500
 with tabEndorse:
     cols = ['First', 'Last'] + endorsers
 
     endorsements = candidatesDf[cols]
-    st.dataframe(endorsements, hide_index=True, height=880)
+    st.dataframe(endorsements, hide_index=True, height=height)
 
     st.write(ccc)
 
@@ -299,7 +300,7 @@ with tabPledge:
     cols = ['First', 'Last'] + pledgeList
 
     pledges = candidatesDf[cols]
-    st.dataframe(pledges, hide_index=True, height=880)
+    st.dataframe(pledges, hide_index=True, height=height)
 
 # %% Questions
 with tabAnswers:
@@ -310,7 +311,7 @@ with tabAnswers:
     # answers.loc[:, 2:] = answers.iloc[:, 2:].fillna(0).astype(int)
     answers = answers.fillna(0)
 
-    st.dataframe(answers, hide_index=True, height=880)
+    st.dataframe(answers, hide_index=True, height=height)
 
 # %% Voting Calculation
 
