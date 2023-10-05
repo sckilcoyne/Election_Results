@@ -47,7 +47,16 @@ def normalize(data):
         norm = data.astype(bool).astype(int) * np.sign(data.min())
     return norm
 
-
+# %% CCC
+ccc = '''## Who is the CCC and why are their endorsed candidates removed from these rankings?
+The CCC is a political group here in Cambridge that has a history of bigotry and supporting bigotry. [2021 article on the CCC](https://lorencrowe.com/a-fair-but-partial-account-of-the-cambridge-citizens-coalitions-activities-since-2019-a2ca8f233ad2?sk=4e4e3ff6afd2b88a78a2b526c4c7d1eb) 
+Despite this history, numerous candidates sought their endorsement this year. When the official CCC endorsements were revealed this year, people quickly noticed that multiple of the endorsed candidates are outspoken bigots. Both of these candidates admitted these posts were real, yet fellow CCC endorsed candidates have gone on reaffirming support of these candidates instead of denouncing the CCC or the bigots endorsed by the CCC. CCC members have gone on to accuse “hacking” and “AI” for creating these posts, after the candidates have confirmed they are real. At this point, it is clear that the entire slate endorses these views by the company they keep and the unwillingness to unequivocally denounce these people. Therefore, without exception, they are unworthy of representing Cambridge. 
+[1](https://www.cambridgeday.com/2023/09/30/group-should-look-closely-at-endorsed-candidates-and-consider-the-company-that-they-are-keeping/) 
+[2](https://www.thecrimson.com/article/2023/10/2/cambridge-citizens-coalition-protest/)
+[3](https://www.thecrimson.com/article/2023/9/27/hgsu-city-council-candidate-forum/)
+[4](https://www.cambridgeday.com/2023/10/02/candidate-event-goes-on-despite-protesting-supporters-calling-evidence-political-fakery/)
+[5](https://www.cambridgeday.com/2023/09/30/two-candidates-for-city-council-in-cambridge-named-as-the-focus-of-rally-to-oppose-bigotry/)
+'''
 # %% Layout
 st.set_page_config(page_title='2023 Cambridge Voting Guide',
                    page_icon=':ballot_box_with_ballot:',
@@ -56,18 +65,6 @@ st.set_page_config(page_title='2023 Cambridge Voting Guide',
 
 st.title('2023 Cambridge Council Election Voting Guide')
 
-# tabNames = ['Voting Guide',
-#             'How this works',
-#             'Endorsement Weights',
-#             'Endorsements',
-#             'Pledge Weights',
-#             'Candidate Pledges',
-#             'Question Weights',
-#             'Candidate Answers',
-#             'Fine Tune'
-#             'Manual Adjustments'
-#             ]
-# tabVote, tabIntro, tabEndorsWeight, tabEndorse, tabPledgeWeight, tabPledge, tabQuestionWeight, tabAnswers, tabManual, tabTune = st.tabs(tabNames)
 tabNames = ['Voting Guide',
             'How this works',
             'Endorsements',
@@ -193,6 +190,8 @@ with tabIntro:
 
     st.markdown('![Subsequent Election Finishing Order](' + githubURL +
                 'First%20Round%20Percentage%20of%20Threshold%20vs.%20Finish%20in%20Subsequent%20Cycle.png)')
+    
+    st.write(ccc)
 
 # %% Manual Fine Tune Adjustments
 endorsers = list(endorseDf.index.values)
@@ -293,6 +292,8 @@ with tabEndorse:
     endorsements = candidatesDf[cols]
     st.dataframe(endorsements, hide_index=True, height=880)
 
+    st.write(ccc)
+
 # %% Pledges
 with tabPledge:
     cols = ['First', 'Last'] + pledgeList
@@ -391,3 +392,5 @@ with tabVote:
     The data used also misses a bunch of nuance in the candidates, which is where the 
     manual adjustments can compensate.
     '''
+
+    st.write(ccc)

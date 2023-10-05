@@ -37,6 +37,16 @@ guideData = import_saved_data()
 
 # %% Create Useable dataframes for app
 
+# Remove CCC endorsements
+print('Removing CCC from rankings')
+print(f'\t{guideData.shape=}')
+guideData.drop(guideData[(guideData['CCC'] == True) & (guideData['Category'].isna())].index,
+               inplace=True)
+
+guideData.drop(['CCC'], axis=1, inplace=True)
+
+print(f'\t{guideData.shape=}')
+
 # Make Table of Candidate endorsements/answers
 candidateScore = guideData[guideData['Category'].isna()].drop(
     ['Category', 'Topic Weight'], axis=1)
