@@ -41,6 +41,7 @@ guideData = import_saved_data()
 print('Removing CCC from rankings')
 print(f'\t{guideData.shape=}')
 guideData.drop(guideData[(guideData['CCC'] == True) & (guideData['Category'].isna())].index,
+               axis=0,
                inplace=True)
 
 guideData.drop(['CCC'], axis=1, inplace=True)
